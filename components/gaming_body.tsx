@@ -1,5 +1,15 @@
-import React from "react";
+"use client";
+
+import GamingGrid from "./game_on/gaming_board";
+
+//libs
+
+//components
 
 export default function GamingBody() {
-  return <div className="h-screen bg-yellow-500">GamingBody</div>;
+  return (
+    <div className="h-[68rem] bg-gray-600 flex">
+      <GamingGrid />
+    </div>
+  );
 }

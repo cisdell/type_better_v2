@@ -195,3 +195,12 @@ export const word_bank = {
     "enervate"
   ]
 } as const
+
+
+type PosData = { row: number, col: number }
+
+export const grid_pos: PosData[] = [
+  { row: 1, col: 1 },
+  { row: 2, col: 1 },
+  { row: 3, col: 1 },
+]
