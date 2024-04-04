@@ -8,19 +8,19 @@ export default function GameBoard() {
     { word: "orange", row: 1, col: 2 },
   ]);
   const word = "apple";
-  useEffect(() => {
-    const interval = setInterval(() => {
-      // Update the rows of all words
-      setWordsOnScreen((prevWords) => {
-        return prevWords.map((word) => ({
-          ...word,
-          row: word.row + 1, // Increment the row
-        }));
-      });
-    }, 1000); // Run every second
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     // Update the rows of all words
+  //     setWordsOnScreen((prevWords) => {
+  //       return prevWords.map((word) => ({
+  //         ...word,
+  //         row: word.row + 1, // Increment the row
+  //       }));
+  //     });
+  //   }, 1000); // Run every second
 
-    return () => clearInterval(interval); // Cleanup on unmount
-  }, []);
+  //   return () => clearInterval(interval); // Cleanup on unmount
+  // }, []);
 
   return (
     <div className="w-[90rem] h-[50rem] border-solid m-auto border-white justify-center align-middle bg-blue-800 flex flex-col">

@@ -14,7 +14,7 @@ export default function GridPlaceholder({
         if (item.row === row && item.col === col) {
           return <div key={index}>{item.word}</div>;
         } else {
-          return <div className="bg-slate-300">{<div></div>}</div>;
+          return <div className="bg-slate-300">{<br />}</div>;
         }
       })}
     </div>
