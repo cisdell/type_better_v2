@@ -8,11 +8,8 @@ type WordType = {
 };
 
 export default function Word({ word, row, col, life, setLife }: WordType) {
+  console.log(word, row, col);
   return (
-    <div
-      className={`absolute grid-cols-subgrid row-start-${row} col-start-${col} lm-auto rm-auto justify-center`}
-    >
-      {word}
-    </div>
+    <div className={`absolute row-start-${row} col-start-${col}`}>{word}</div>
   );
 }

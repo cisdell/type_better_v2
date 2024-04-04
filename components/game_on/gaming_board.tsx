@@ -10,12 +10,12 @@ import { grid_pos, word_bank } from "@/lib/data";
 
 export default function GameBoard() {
   const [wordsOnScreen, setWordsOnScreen] = useState([
-    { word: "apple", row: 1, col: 1 },
-    { word: "orange", row: 2, col: 2 },
+    { word: "apple", row: 1, col: 3 },
+    { word: "orange", row: 8, col: 3 },
     { word: "tissue", row: 3, col: 3 },
     { word: "chris", row: 5, col: 2 },
-    { word: "bloomberg", row: 8, col: 3 },
-    { word: "shouldbegone", row: 9, col: 3 },
+    { word: "bloomberg", row: 8, col: 2 },
+    { word: "shouldbegone", row: 9, col: 1 },
   ]);
   const [elapsedTime, setElapsedTime] = useState(0);
   const [wordsCount, setWordsCount] = useState(0);
@@ -89,6 +89,15 @@ export default function GameBoard() {
             setLife={setLife}
           />
         ))}
+        <div className="absolute row-start-1 col-start-1"></div>
+        <div className="absolute row-start-2 col-start-2"></div>
+        <div className="absolute row-start-3 col-start-3"></div>
+        <div className="absolute row-start-4 col-start-3"></div>
+        <div className="absolute row-start-5 col-start-3"></div>
+        <div className="absolute row-start-6 col-start-3"></div>
+        <div className="absolute row-start-7 col-start-3"></div>
+        <div className="absolute row-start-8 col-start-3"></div>
+        <div className="absolute row-start-9 col-start-3"></div>
       </div>
       <form className="ml-auto mr-auto mt-7" onSubmit={submitTry}>
         <input
