@@ -1,6 +1,8 @@
 //components
 import GridPlaceholder from "./grid_placeholder";
 import Word from "./word";
+import { submitTry } from "./gaming_functions";
+
 //libs
 import { useState, useRef, useEffect } from "react";
 //data
@@ -46,7 +48,13 @@ export default function GameBoard() {
     setTryValue(newValue);
   };
 
-  //text input submit
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   submitTry(tryValue, wordsOnScreen, setClearedCount, setWordsOnScreen);
+  //   setTryValue(""); // Clear input field
+  // };
+
+  // text input submit
   const submitTry = (e) => {
     e.preventDefault();
     for (let i = 0; i < wordsOnScreen.length; i++) {
@@ -72,7 +80,14 @@ export default function GameBoard() {
           <GridPlaceholder row={row} col={col} key={index} />
         ))}
         {wordsOnScreen.map((w, index) => (
-          <Word word={w.word} row={w.row} col={w.col} key={index} />
+          <Word
+            word={w.word}
+            row={w.row}
+            col={w.col}
+            key={index}
+            life={life}
+            setLife={setLife}
+          />
         ))}
       </div>
       <form className="ml-auto mr-auto mt-7" onSubmit={submitTry}>
