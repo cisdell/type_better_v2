@@ -27,19 +27,19 @@ export default function GameBoard() {
   const [gameOver, setGameOver] = useState(false);
   const [audioPlaying, setAudioPlaying] = useState(false);
 
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     // Update the rows of all words
-  //     setWordsOnScreen((prevWords) => {
-  //       return prevWords.map((word) => ({
-  //         ...word,
-  //         row: word.row + 1, // Increment the row
-  //       }));
-  //     });
-  //   }, 1000); // Run every second
+  useEffect(() => {
+    const interval = setInterval(() => {
+      // Update the rows of all words
+      setWordsOnScreen((prevWords) => {
+        return prevWords.map((word) => ({
+          ...word,
+          row: word.row + 1, // Increment the row
+        }));
+      });
+    }, 1000); // Run every second
 
-  //   return () => clearInterval(interval); // Cleanup on unmount
-  // }, []);
+    return () => clearInterval(interval); // Cleanup on unmount
+  }, []);
 
   // console.log(tryValue);
   const setChange = (e) => {
@@ -81,6 +81,8 @@ export default function GameBoard() {
             life={life}
             setLife={setLife}
             setGameOver={setGameOver}
+            wordsOnScreen={wordsOnScreen}
+            setWordsOnScreen={setWordsOnScreen}
           />
         ))}
         {/* This divs below needs to be rendered first so tailwind css is correctly cached. weird.  */}

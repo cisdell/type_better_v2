@@ -6,6 +6,8 @@ type WordType = {
   life: number[];
   setLife: Function;
   setGameOver: Function;
+  wordsOnScreen: any;
+  setWordsOnScreen: Function;
 };
 
 export default function Word({
@@ -15,6 +17,8 @@ export default function Word({
   life,
   setLife,
   setGameOver,
+  wordsOnScreen,
+  setWordsOnScreen,
 }: WordType) {
   // console.log(word, row, col);
   // let show: boolean = true;
@@ -31,6 +35,14 @@ export default function Word({
       life.pop();
       setLife(life);
       console.log("expired" + expired(row));
+      for (let i = 0; i < wordsOnScreen.length; i++) {
+        if (wordsOnScreen[i].word === word) {
+          wordsOnScreen.splice(i, 1);
+          setWordsOnScreen(wordsOnScreen);
+          console.log(wordsOnScreen);
+          break; // Stop loop once object is removed
+        }
+      }
     }
   }, [row]);
 
