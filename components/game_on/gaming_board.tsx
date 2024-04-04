@@ -40,19 +40,12 @@ export default function GameBoard() {
 
   //   return () => clearInterval(interval); // Cleanup on unmount
   // }, []);
-  //
 
-  console.log(tryValue);
+  // console.log(tryValue);
   const setChange = (e) => {
     const newValue = e.target.value.replace(/\s/g, "");
     setTryValue(newValue);
   };
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   submitTry(tryValue, wordsOnScreen, setClearedCount, setWordsOnScreen);
-  //   setTryValue(""); // Clear input field
-  // };
 
   // text input submit
   const submitTry = (e) => {
@@ -89,6 +82,7 @@ export default function GameBoard() {
             setLife={setLife}
           />
         ))}
+        {/* This divs below needs to be rendered first so tailwind css is correctly cached. weird.  */}
         <div className="absolute row-start-1 col-start-1"></div>
         <div className="absolute row-start-2 col-start-2"></div>
         <div className="absolute row-start-3 col-start-3"></div>

@@ -9,7 +9,17 @@ type WordType = {
 
 export default function Word({ word, row, col, life, setLife }: WordType) {
   console.log(word, row, col);
+  const show = (row: number): boolean => {
+    return row < 9;
+  };
+
   return (
-    <div className={`absolute row-start-${row} col-start-${col}`}>{word}</div>
+    <>
+      {show(row) && (
+        <div className={`absolute row-start-${row} col-start-${col}`}>
+          {word}
+        </div>
+      )}
+    </>
   );
 }
