@@ -47,7 +47,7 @@ export default function GameBoard() {
     setTryValue(newValue);
   };
 
-  // text input submit
+  // User attempting to clear a word
   const submitTry = (e) => {
     e.preventDefault();
     for (let i = 0; i < wordsOnScreen.length; i++) {
@@ -80,6 +80,7 @@ export default function GameBoard() {
             key={index}
             life={life}
             setLife={setLife}
+            setGameOver={setGameOver}
           />
         ))}
         {/* This divs below needs to be rendered first so tailwind css is correctly cached. weird.  */}
