@@ -9,7 +9,10 @@ import { grid_pos, word_bank } from "@/lib/data";
 export default function GameBoard() {
   const [wordsOnScreen, setWordsOnScreen] = useState([
     { word: "apple", row: 1, col: 1 },
-    { word: "orange", row: 2, col: 3 },
+    { word: "orange", row: 2, col: 2 },
+    { word: "tissue", row: 3, col: 3 },
+    { word: "chris", row: 5, col: 2 },
+    { word: "bloomberg", row: 8, col: 3 },
   ]);
   const word = "apple";
   // useEffect(() => {
@@ -34,11 +37,11 @@ export default function GameBoard() {
         {grid_pos.map(({ row, col }, index) => (
           <GridPlaceholder row={row} col={col} key={index} />
         ))}
-        {/* {wordsOnScreen.map((w, index) => (
+        {wordsOnScreen.map((w, index) => (
           <Word word={w.word} row={w.row} col={w.col} key={index} />
-        ))} */}
+        ))}
 
-        <div className="absolute grid-cols-subgrid row-start-8 col-start-3">
+        {/* <div className="absolute grid-cols-subgrid row-start-8 col-start-3">
           00
         </div>
         <div className="absolute grid-cols-subgrid row-start-4 col-start-2">
@@ -46,7 +49,7 @@ export default function GameBoard() {
         </div>
         <div className="absolute grid-cols-subgrid row-start-2 col-start-1">
           03
-        </div>
+        </div> */}
       </div>
     </div>
   );
