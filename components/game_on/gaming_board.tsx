@@ -86,7 +86,7 @@ export default function GameBoard() {
           />
         ))}
         {/* This divs below needs to be rendered first so tailwind css is correctly cached. weird.  */}
-        <div className="absolute row-start-1 col-start-1"></div>
+        {/* <div className="absolute row-start-1 col-start-1"></div>
         <div className="absolute row-start-2 col-start-2"></div>
         <div className="absolute row-start-3 col-start-3"></div>
         <div className="absolute row-start-4 col-start-3"></div>
@@ -94,7 +94,7 @@ export default function GameBoard() {
         <div className="absolute row-start-6 col-start-3"></div>
         <div className="absolute row-start-7 col-start-3"></div>
         <div className="absolute row-start-8 col-start-3"></div>
-        <div className="absolute row-start-9 col-start-3"></div>
+        <div className="absolute row-start-9 col-start-3"></div> */}
       </div>
       <form className="ml-auto mr-auto mt-7" onSubmit={submitTry}>
         <input
