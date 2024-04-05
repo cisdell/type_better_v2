@@ -3,6 +3,9 @@ import GridPlaceholder from "./grid_placeholder";
 import Word from "./word";
 import { submitTry } from "./gaming_functions";
 
+//functions
+import { getRandomIntInRange } from "./gaming_functions";
+
 //libs
 import { useState, useRef, useEffect } from "react";
 //data
@@ -10,16 +13,17 @@ import { grid_pos, word_bank } from "@/lib/data";
 
 export default function GameBoard() {
   const [wordsOnScreen, setWordsOnScreen] = useState([
-    { word: "apple", row: 1, col: 3 },
-    { word: "orange", row: 8, col: 3 },
-    { word: "tissue", row: 3, col: 3 },
-    { word: "chris", row: 5, col: 2 },
-    { word: "bloomberg", row: 8, col: 2 },
-    { word: "shouldbegone", row: 9, col: 1 },
+    // { word: "apple", row: 1, col: 3 },
+    // { word: "orange", row: 8, col: 3 },
+    // { word: "tissue", row: 3, col: 3 },
+    // { word: "chris", row: 5, col: 2 },
+    // { word: "bloomberg", row: 8, col: 2 },
+    // { word: "shouldbegone", row: 9, col: 1 },
   ]);
   const [elapsedTime, setElapsedTime] = useState(0);
   const [wordsCount, setWordsCount] = useState(0);
-  const [speed, setSpeed] = useState(2000);
+  const [speed, setSpeed] = useState(1000);
+  const [level, setLevel] = useState(1);
   const [tryValue, setTryValue] = useState("");
   const [life, setLife] = useState([0, 0, 0, 0, 0]);
   const [clearedCount, setClearedCount] = useState(0);
@@ -27,6 +31,7 @@ export default function GameBoard() {
   const [gameOver, setGameOver] = useState(false);
   const [audioPlaying, setAudioPlaying] = useState(false);
 
+  //function to
   useEffect(() => {
     const interval = setInterval(() => {
       // Update the rows of all words
@@ -36,7 +41,7 @@ export default function GameBoard() {
           row: word.row + 1, // Increment the row
         }));
       });
-    }, 1000); // Run every second
+    }, speed); // Run every second
 
     return () => clearInterval(interval); // Cleanup on unmount
   }, []);
@@ -61,9 +66,36 @@ export default function GameBoard() {
     }
     setTryValue(""); // should clear the field after hitting return
   };
+  const word_queue = word_bank.words;
+  function getRandomInt(min, max) {
+    min = Math.ceil(1);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+  const generateWord = () => {
+    let wordToAdd = word_queue.pop();
+    function getRandomInt(min, max) {
+      min = Math.ceil(min); // Ensure min is rounded up
+      max = Math.floor(max); // Ensure max is rounded down
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+    const randomNumber = getRandomInt(1, 3);
+
+    let wordToAddObj = { word: wordToAdd, row: 1, col: randomNumber };
+    setWordsOnScreen([...wordsOnScreen, wordToAddObj]);
+    console.log(wordsOnScreen);
+  };
+
+  // function startWordGeneration() {
+  //   setInterval(generateWord, 5000); // Invoke generateWord function every 1000 milliseconds (1 second)
+  // }
+
+  // Call the function to start word generation
+  // startWordGeneration();
 
   return (
     <div className="w-[90rem] h-[50rem] border-solid m-auto border-white justify-center align-middle bg-blue-400 flex flex-col">
+      <button onClick={generateWord}>Generate Word</button>
       <h1 className="text-center text-lg">
         Type away the words before they hit the floor!
       </h1>
