@@ -1,7 +1,5 @@
 'use server'
-import { word_bank } from '@/lib/data';
 
-//function to submit a try value.
 export const submitTry = (tryValue: string, wordsOnScreen: any[], setClearedCount: Function, setWordsOnScreen: Function): void => {
   for (let i = 0; i < wordsOnScreen.length; i++) {
     if (wordsOnScreen[ i ].word === tryValue) {
