@@ -2,28 +2,22 @@
 import GridPlaceholder from "./grid_placeholder";
 import Word from "./word";
 import { submitTry } from "./gaming_functions";
-
-//functions
-import { getRandomInt } from "./gaming_functions";
-
 //libs
 import { useState, useRef, useEffect } from "react";
+//functions
+import { getRandomInt, getWord } from "./gaming_functions";
+//types
+
 //data
 import { grid_pos, word_bank } from "@/lib/data";
 
 export default function GameBoard() {
-  const [wordsOnScreen, setWordsOnScreen] = useState([
-    // { word: "apple", row: 1, col: 3 },
-    // { word: "orange", row: 8, col: 3 },
-    // { word: "tissue", row: 3, col: 3 },
-    // { word: "chris", row: 5, col: 2 },
-    // { word: "bloomberg", row: 8, col: 2 },
-    // { word: "shouldbegone", row: 9, col: 1 },
-  ]);
-  const [elapsedTime, setElapsedTime] = useState(0);
-  const [wordsCount, setWordsCount] = useState(0);
+  const [wordsOnScreen, setWordsOnScreen] = useState([]);
+  //game level specific state
   const [speed, setSpeed] = useState(1000);
   const [level, setLevel] = useState(1);
+  const [wordsCount, setWordsCount] = useState(0);
+  const [elapsedTime, setElapsedTime] = useState(0);
   const [tryValue, setTryValue] = useState("");
   const [life, setLife] = useState([0, 0, 0, 0, 0]);
   const [clearedCount, setClearedCount] = useState(0);
@@ -67,16 +61,16 @@ export default function GameBoard() {
     setTryValue(""); // should clear the field after hitting return
   };
   const word_queue = word_bank.words;
-  function getRandomInt(min, max) {
-    min = Math.ceil(1);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
+  // function getRandomInt(min, max) {
+  //   min = Math.ceil(1);
+  //   max = Math.floor(max);
+  //   return Math.floor(Math.random() * (max - min + 1)) + min;
+  // }
   const generateWord = () => {
-    let wordToAdd = word_queue.pop();
-    const randomNumber = getRandomInt(1, 3);
-    let wordToAddObj = { word: wordToAdd, row: 1, col: randomNumber };
-
+    // let wordToAdd = word_queue.shift();
+    // const randomNumber = getRandomInt(1, 3);
+    // let wordToAddObj = { word: wordToAdd, row: 1, col: randomNumber };
+    let wordToAddObj = getWord(word_queue);
     // Create a new array by spreading the previous state and adding the new word object
     setWordsOnScreen((prevWords) => [...prevWords, wordToAddObj]);
   };
