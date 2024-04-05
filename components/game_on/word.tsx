@@ -1,5 +1,22 @@
 import React, { useEffect } from "react";
 
+// const test1 = 'absolute row-start-1 col-start-1',;
+// const test2 = 'absolute row-start-1 col-start-2',;
+// const test3 = 'absolute row-start-1 col-start-3',;
+// const row1 = "absolute row-start-1";
+// const row2 = "absolute row-start-2";
+// const row3 = "absolute row-start-3";
+// const row4 = "absolute row-start-4";
+// const row5 = "absolute row-start-5";
+// const row6 = "absolute row-start-6";
+// const row7 = "absolute row-start-7";
+// const row8 = "absolute row-start-8";
+// const row9 = "absolute row-start-9";
+
+// const col1 = "col-start-1";
+// const col2 = "col-start-2";
+// const col3 = "col-start-3";
+
 export default function Word({
   word,
   row,

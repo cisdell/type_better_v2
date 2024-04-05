@@ -1,5 +1,7 @@
 'use server'
+import { word_bank } from '@/lib/data';
 
+//function to submit a try value.
 export const submitTry = (tryValue: string, wordsOnScreen: any[], setClearedCount: Function, setWordsOnScreen: Function): void => {
   for (let i = 0; i < wordsOnScreen.length; i++) {
     if (wordsOnScreen[ i ].word === tryValue) {
@@ -12,3 +14,14 @@ export const submitTry = (tryValue: string, wordsOnScreen: any[], setClearedCoun
   }
 }
 
+//function to generate one word at a time.
+const word_queue = word_bank.words;
+export const generateWord = () => {
+
+}
+
+export const getRandomInt = (min, max) => {
+  min = Math.ceil(1);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}

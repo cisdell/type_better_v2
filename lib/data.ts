@@ -194,7 +194,7 @@ export const word_bank = {
     "endemic",
     "enervate"
   ]
-} as const
+}
 
 
 type PosData = { row: number, col: number }
