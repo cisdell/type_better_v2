@@ -15,13 +15,22 @@ export const submitTry = (tryValue: string, wordsOnScreen: any[], setClearedCoun
 }
 
 //function to generate one word at a time.
-const word_queue = word_bank.words;
-export const generateWord = () => {
+// const word_queue = word_bank.words;
+// export const generateWord = () => {
 
-}
+// }
 
 export const getRandomInt = (min, max) => {
   min = Math.ceil(1);
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+// const word_queue = word_bank.words;
+
+export const getWord = (word_queue) => {
+  let wordToAdd = word_queue.pop();
+  const randomNumber = getRandomInt(1, 3);
+  const t = { 'word': wordToAdd, 'row': 1, col: 3 };
+  // console.log(t)
+  return t;
 }
