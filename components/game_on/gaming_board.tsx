@@ -4,8 +4,7 @@ import Word from "./word";
 import { submitTry } from "./gaming_functions";
 //libs
 import { useState, useRef, useEffect } from "react";
-//functions
-// import { getRandomInt, getWord } from "./gaming_functions";
+
 //types
 
 //data
@@ -15,7 +14,7 @@ export default function GameBoard() {
   const [wordsOnScreen, setWordsOnScreen] = useState([]);
   //game level specific state
   const [speed, setSpeed] = useState(1000);
-  const [level, setLevel] = useState(1);
+  const [level, setLevel] = useState(0);
   const [wordsCount, setWordsCount] = useState(0);
   const [elapsedTime, setElapsedTime] = useState(0);
   const [tryValue, setTryValue] = useState("");
@@ -39,15 +38,15 @@ export default function GameBoard() {
         wordsOnScreen.splice(i, 1);
         setClearedCount(clearedCount + 1);
         setWordsOnScreen(wordsOnScreen);
-        console.log(wordsOnScreen);
+        // console.log(wordsOnScreen);
         break;
       }
     }
     setTryValue("");
   };
-
+  // console.log(word_bank[0]);
   //two functions to generate a word from the word bank
-  const word_queue = word_bank.words;
+  const word_queue = word_bank[0]["words"];
   function getRandomInt(min, max) {
     min = Math.ceil(1);
     max = Math.floor(max);
@@ -55,8 +54,8 @@ export default function GameBoard() {
   }
   const generateWord = () => {
     let wordToAdd = word_queue.shift();
-    const randomNumber = getRandomInt(1, 3);
-    let wordToAddObj = { word: wordToAdd, row: 1, col: randomNumber };
+    // const randomNumber = getRandomInt(1, 3);
+    let wordToAddObj = { word: wordToAdd, row: 1, col: getRandomInt(1, 3) };
     setWordsOnScreen((prevWords) => [...prevWords, wordToAddObj]);
   };
 
