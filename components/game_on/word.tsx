@@ -1,14 +1,4 @@
 import React, { useEffect } from "react";
-type WordType = {
-  word: string;
-  row: number;
-  col: number;
-  life: number[];
-  setLife: Function;
-  setGameOver: Function;
-  wordsOnScreen: any;
-  setWordsOnScreen: Function;
-};
 
 // const test1 = 'absolute row-start-1 col-start-1',;
 // const test2 = 'absolute row-start-1 col-start-2',;
@@ -67,10 +57,20 @@ export default function Word({
   return (
     <>
       {!expired(row) && (
-        <div className={`absolute row-start-${row} col-start-${col}`}>
-          {word}
-        </div>
+        // <div className={`absolute row-start-${row} col-start-${col}`}>
+        <div className={css}>{word}</div>
       )}
     </>
   );
 }
+
+type WordType = {
+  word: string;
+  row: number;
+  col: number;
+  life: number[];
+  setLife: Function;
+  setGameOver: Function;
+  wordsOnScreen: any;
+  setWordsOnScreen: Function;
+};
