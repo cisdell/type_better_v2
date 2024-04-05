@@ -4,7 +4,7 @@ import Word from "./word";
 import { submitTry } from "./gaming_functions";
 
 //functions
-import { getRandomIntInRange } from "./gaming_functions";
+import { getRandomInt } from "./gaming_functions";
 
 //libs
 import { useState, useRef, useEffect } from "react";
@@ -74,24 +74,21 @@ export default function GameBoard() {
   }
   const generateWord = () => {
     let wordToAdd = word_queue.pop();
-    function getRandomInt(min, max) {
-      min = Math.ceil(min); // Ensure min is rounded up
-      max = Math.floor(max); // Ensure max is rounded down
-      return Math.floor(Math.random() * (max - min + 1)) + min;
-    }
     const randomNumber = getRandomInt(1, 3);
-
     let wordToAddObj = { word: wordToAdd, row: 1, col: randomNumber };
-    setWordsOnScreen([...wordsOnScreen, wordToAddObj]);
-    console.log(wordsOnScreen);
+
+    // Create a new array by spreading the previous state and adding the new word object
+    setWordsOnScreen((prevWords) => [...prevWords, wordToAddObj]);
   };
 
-  // function startWordGeneration() {
-  //   setInterval(generateWord, 5000); // Invoke generateWord function every 1000 milliseconds (1 second)
-  // }
+  useEffect(() => {
+    const interval = setInterval(() => {
+      generateWord();
+    }, 3000); // 3000 milliseconds = 3 seconds
 
-  // Call the function to start word generation
-  // startWordGeneration();
+    // Clean up the interval when the component unmounts
+    return () => clearInterval(interval);
+  }, []); // Empty dependency array means this effect will run only once, similar to componentDidMount
 
   return (
     <div className="w-[90rem] h-[50rem] border-solid m-auto border-white justify-center align-middle bg-blue-400 flex flex-col">

@@ -20,8 +20,8 @@ export const generateWord = () => {
 
 }
 
-export const getRandomIntInRange = (min, max) => {
-  min = Math.ceil(min);
+export const getRandomInt = (min, max) => {
+  min = Math.ceil(1);
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
