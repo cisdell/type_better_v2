@@ -1,6 +1,5 @@
 export const word_bank = [
   {
-
     level: 0,
     speed: 1000,
     words: [ "Avocado",
