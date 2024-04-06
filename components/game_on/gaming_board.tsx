@@ -2,96 +2,97 @@
 import GridPlaceholder from "./grid_placeholder";
 import Word from "./word";
 import { submitTry } from "./gaming_functions";
-
-//functions
-import { getRandomInt } from "./gaming_functions";
-
+import BatteryContainer from "./battery_container";
 //libs
 import { useState, useRef, useEffect } from "react";
+
+//types
+import { WordObjType, LevelsType } from "@/util/types";
 //data
 import { grid_pos, word_bank } from "@/lib/data";
 
-export default function GameBoard() {
-  const [wordsOnScreen, setWordsOnScreen] = useState([
-    // { word: "apple", row: 1, col: 3 },
-    // { word: "orange", row: 8, col: 3 },
-    // { word: "tissue", row: 3, col: 3 },
-    // { word: "chris", row: 5, col: 2 },
-    // { word: "bloomberg", row: 8, col: 2 },
-    // { word: "shouldbegone", row: 9, col: 1 },
-  ]);
-  const [elapsedTime, setElapsedTime] = useState(0);
-  const [wordsCount, setWordsCount] = useState(0);
-  const [speed, setSpeed] = useState(1000);
-  const [level, setLevel] = useState(1);
-  const [tryValue, setTryValue] = useState("");
-  const [life, setLife] = useState([0, 0, 0, 0, 0]);
-  const [clearedCount, setClearedCount] = useState(0);
-  const [paused, setPaused] = useState(false);
-  const [gameOver, setGameOver] = useState(false);
-  const [audioPlaying, setAudioPlaying] = useState(false);
-
-  //function to
-  useEffect(() => {
-    const interval = setInterval(() => {
-      // Update the rows of all words
-      setWordsOnScreen((prevWords) => {
-        return prevWords.map((word) => ({
-          ...word,
-          row: word.row + 1, // Increment the row
-        }));
-      });
-    }, speed); // Run every second
-
-    return () => clearInterval(interval); // Cleanup on unmount
-  }, []);
+export default function GameBoard(): React.FC {
+  const [wordsOnScreen, setWordsOnScreen] = useState<WordObjType[]>([]);
+  //game level specific state
+  const [speed, setSpeed] = useState<number>(2000);
+  const [level, setLevel] = useState<LevelsType>(0);
+  const [wordsCount, setWordsCount] = useState<number>(0);
+  // const [elapsedTime, setElapsedTime] = useState(0);
+  const [tryValue, setTryValue] = useState<string>("");
+  const [life, setLife] = useState<number[]>([0, 0, 0, 0]);
+  const [clearedCount, setClearedCount] = useState<number>(0);
+  const [paused, setPaused] = useState<boolean>(false);
+  const [gameOver, setGameOver] = useState<boolean>(false);
+  const [audioPlaying, setAudioPlaying] = useState<boolean>(false);
 
   // console.log(tryValue);
-  const setChange = (e) => {
+  const setChange = (e: React.SyntheticEvent): void => {
     const newValue = e.target.value.replace(/\s/g, "");
     setTryValue(newValue);
   };
 
-  // User attempting to clear a word
-  const submitTry = (e) => {
+  // function to attempt to clear a value
+  const submitTry = (e: React.SyntheticEvent): void => {
     e.preventDefault();
     for (let i = 0; i < wordsOnScreen.length; i++) {
       if (wordsOnScreen[i].word === tryValue) {
         wordsOnScreen.splice(i, 1);
         setClearedCount(clearedCount + 1);
         setWordsOnScreen(wordsOnScreen);
-        console.log(wordsOnScreen);
-        break; // Stop loop once object is removed
+        break;
       }
     }
-    setTryValue(""); // should clear the field after hitting return
+    setTryValue("");
   };
-  const word_queue = word_bank.words;
-  function getRandomInt(min, max) {
+
+  //two functions to generate a word from the word bank
+  const word_queue = word_bank[0]["words"];
+  function getRandomInt(min: number, max: number): number {
     min = Math.ceil(1);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
   const generateWord = () => {
-    let wordToAdd = word_queue.pop();
-    const randomNumber = getRandomInt(1, 3);
-    let wordToAddObj = { word: wordToAdd, row: 1, col: randomNumber };
-
-    // Create a new array by spreading the previous state and adding the new word object
+    let wordToAdd = word_queue.shift();
+    let wordToAddObj = { word: wordToAdd, row: 1, col: getRandomInt(1, 3) };
     setWordsOnScreen((prevWords) => [...prevWords, wordToAddObj]);
   };
 
+  //pause button
+  const pauseButton = () => {
+    setPaused(!paused);
+  };
+
+  //generate a word ever x seconds
+  useEffect(() => {
+    if (!paused) {
+      const interval = setInterval(() => {
+        generateWord();
+      }, speed);
+      return () => clearInterval(interval);
+    }
+  }, [paused]);
+
+  //function to move down the words
   useEffect(() => {
     const interval = setInterval(() => {
-      generateWord();
-    }, 3000); // 3000 milliseconds = 3 seconds
+      if (!paused) {
+        setWordsOnScreen((prevWords) => {
+          return prevWords.map((word) => ({
+            ...word,
+            row: word.row + 1, // Increment the row
+          }));
+        });
+      }
+    }, speed);
+    return () => clearInterval(interval); // Cleanup on unmount
+  }, [paused, speed]); // Add paused and speed as dependencies
 
-    // Clean up the interval when the component unmounts
-    return () => clearInterval(interval);
-  }, []); // Empty dependency array means this effect will run only once, similar to componentDidMount
-
+  //jsx components
   return (
-    <div className="w-[90rem] h-[50rem] border-solid m-auto border-white justify-center align-middle bg-blue-400 flex flex-col">
+    <div className="w-[90rem] h-[50rem] border-solid m-auto border-white justify-center align-middle bg-blue-400 flex flex-col relative">
+      <BatteryContainer life={life} />
+      <button onClick={pauseButton}>Pause</button>
       <button onClick={generateWord}>Generate Word</button>
       <h1 className="text-center text-lg">
         Type away the words before they hit the floor!
@@ -114,16 +115,6 @@ export default function GameBoard() {
             setWordsOnScreen={setWordsOnScreen}
           />
         ))}
-        {/* This divs below needs to be rendered first so tailwind css is correctly cached. weird.  */}
-        {/* <div className="absolute row-start-1 col-start-1"></div>
-        <div className="absolute row-start-2 col-start-2"></div>
-        <div className="absolute row-start-3 col-start-3"></div>
-        <div className="absolute row-start-4 col-start-3"></div>
-        <div className="absolute row-start-5 col-start-3"></div>
-        <div className="absolute row-start-6 col-start-3"></div>
-        <div className="absolute row-start-7 col-start-3"></div>
-        <div className="absolute row-start-8 col-start-3"></div>
-        <div className="absolute row-start-9 col-start-3"></div> */}
       </div>
       <form className="ml-auto mr-auto mt-7" onSubmit={submitTry}>
         <input
