@@ -2,6 +2,7 @@
 import GridPlaceholder from "./grid_placeholder";
 import Word from "./word";
 import { submitTry } from "./gaming_functions";
+import {} from "";
 //libs
 import { useState, useRef, useEffect } from "react";
 
@@ -21,8 +22,8 @@ export default function GameBoard() {
   const [life, setLife] = useState([0, 0, 0, 0, 0]);
   const [clearedCount, setClearedCount] = useState(0);
   const [paused, setPaused] = useState(false);
-  const [gameOver, setGameOver] = useState(false);
-  const [audioPlaying, setAudioPlaying] = useState(false);
+  // const [gameOver, setGameOver] = useState(false);
+  // const [audioPlaying, setAudioPlaying] = useState(false);
 
   // console.log(tryValue);
   const setChange = (e) => {
@@ -38,23 +39,21 @@ export default function GameBoard() {
         wordsOnScreen.splice(i, 1);
         setClearedCount(clearedCount + 1);
         setWordsOnScreen(wordsOnScreen);
-        // console.log(wordsOnScreen);
         break;
       }
     }
     setTryValue("");
   };
-  // console.log(word_bank[0]);
+
   //two functions to generate a word from the word bank
   const word_queue = word_bank[0]["words"];
-  function getRandomInt(min, max) {
+  function getRandomInt(min: number, max: number): number {
     min = Math.ceil(1);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
   const generateWord = () => {
     let wordToAdd = word_queue.shift();
-    // const randomNumber = getRandomInt(1, 3);
     let wordToAddObj = { word: wordToAdd, row: 1, col: getRandomInt(1, 3) };
     setWordsOnScreen((prevWords) => [...prevWords, wordToAddObj]);
   };
@@ -86,10 +85,10 @@ export default function GameBoard() {
         });
       }
     }, speed);
-
     return () => clearInterval(interval); // Cleanup on unmount
   }, [paused, speed]); // Add paused and speed as dependencies
 
+  //jsx components
   return (
     <div className="w-[90rem] h-[50rem] border-solid m-auto border-white justify-center align-middle bg-blue-400 flex flex-col">
       <button onClick={pauseButton}>Pause</button>

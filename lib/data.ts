@@ -1,6 +1,8 @@
 export const word_bank = [
   {
+
     level: 0,
+    speed: 1000,
     words: [ "Avocado",
       "Raspberry",
       "Cherry",
@@ -33,10 +35,11 @@ export const word_bank = [
       "Panda",
       "Candle",
       "Penguin", ],
-    message: 'sdfsdfsdf'
+    message: 'level 0 cleared! Are you ready for level 1? '
   },
   {
     level: 1,
+    speed: 700,
     words: [ "Piano",
       "Fireworks",
       "Forest",
@@ -85,10 +88,11 @@ export const word_bank = [
       "Ostrich",
       "Chocolate",
       "Mountain", ],
-    message: 'level 2 cleared'
+    message: 'level 1 cleared! Are you ready for level 2? '
   },
   {
     level: 2,
+    speed: 500,
     words: [ "Cactus",
       "Fountain",
       "Coconut",
@@ -202,7 +206,7 @@ export const word_bank = [
       "encomium",
       "endemic",
       "enervate" ],
-    message: 'sdfsdfsdf'
+    message: 'level 2 cleared! We got nothing for you!'
   }
 ]
 
