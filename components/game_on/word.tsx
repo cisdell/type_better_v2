@@ -37,7 +37,7 @@ export default function Word({
 
   useEffect(() => {
     if (expired(row)) {
-      if (life.length === 0) {
+      if (life === 0) {
         setGameOver(true);
       }
       life.pop();
@@ -68,7 +68,7 @@ type WordType = {
   word: string;
   row: number;
   col: number;
-  life: number[];
+  life: number;
   setLife: Function;
   setGameOver: Function;
   wordsOnScreen: any;
