@@ -1,38 +1,38 @@
 //components
 import GridPlaceholder from "./grid_placeholder";
 import Word from "./word";
-import { submitTry } from "./gaming_functions";
-import {} from "";
+
+import BatteryContainer from "./battery_container";
 //libs
 import { useState, useRef, useEffect } from "react";
 
 //types
-
+import { WordObjType, LevelsType } from "@/util/types";
 //data
 import { grid_pos, word_bank } from "@/lib/data";
 
-export default function GameBoard() {
-  const [wordsOnScreen, setWordsOnScreen] = useState([]);
+const GameBoard: React.FC<{}> = () => {
+  const [wordsOnScreen, setWordsOnScreen] = useState<WordObjType[]>([]);
   //game level specific state
-  const [speed, setSpeed] = useState(1000);
-  const [level, setLevel] = useState(0);
-  const [wordsCount, setWordsCount] = useState(0);
-  const [elapsedTime, setElapsedTime] = useState(0);
-  const [tryValue, setTryValue] = useState("");
-  const [life, setLife] = useState([0, 0, 0, 0, 0]);
-  const [clearedCount, setClearedCount] = useState(0);
-  const [paused, setPaused] = useState(false);
-  // const [gameOver, setGameOver] = useState(false);
-  // const [audioPlaying, setAudioPlaying] = useState(false);
+  const [speed, setSpeed] = useState<number>(2000);
+  const [level, setLevel] = useState<LevelsType>(0);
+  const [wordsCount, setWordsCount] = useState<number>(0);
+  // const [elapsedTime, setElapsedTime] = useState(0);
+  const [tryValue, setTryValue] = useState<string>("");
+  const [life, setLife] = useState<number[]>([0, 0, 0, 0]);
+  const [clearedCount, setClearedCount] = useState<number>(0);
+  const [paused, setPaused] = useState<boolean>(false);
+  const [gameOver, setGameOver] = useState<boolean>(false);
+  const [audioPlaying, setAudioPlaying] = useState<boolean>(false);
 
   // console.log(tryValue);
-  const setChange = (e) => {
+  const setChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const newValue = e.target.value.replace(/\s/g, "");
     setTryValue(newValue);
   };
 
   // function to attempt to clear a value
-  const submitTry = (e) => {
+  const submitTry = (e: React.SyntheticEvent): void => {
     e.preventDefault();
     for (let i = 0; i < wordsOnScreen.length; i++) {
       if (wordsOnScreen[i].word === tryValue) {
@@ -52,21 +52,26 @@ export default function GameBoard() {
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
-  const generateWord = () => {
-    let wordToAdd = word_queue.shift();
-    let wordToAddObj = { word: wordToAdd, row: 1, col: getRandomInt(1, 3) };
+  const generateWord = (): void => {
+    let wordToAdd: string = word_queue.shift() || "";
+    let wordToAddObj: WordObjType = {
+      word: wordToAdd,
+      row: 1,
+      col: getRandomInt(1, 3),
+    };
     setWordsOnScreen((prevWords) => [...prevWords, wordToAddObj]);
   };
 
   //pause button
-  const pauseButton = () => {
+  const pauseButton = (): void => {
     setPaused(!paused);
   };
 
   //generate a word ever x seconds
   useEffect(() => {
+    let interval: NodeJS.Timeout;
     if (!paused) {
-      const interval = setInterval(() => {
+      interval = setInterval(() => {
         generateWord();
       }, speed);
       return () => clearInterval(interval);
@@ -75,7 +80,8 @@ export default function GameBoard() {
 
   //function to move down the words
   useEffect(() => {
-    const interval = setInterval(() => {
+    let interval: NodeJS.Timeout;
+    interval = setInterval(() => {
       if (!paused) {
         setWordsOnScreen((prevWords) => {
           return prevWords.map((word) => ({
@@ -90,7 +96,8 @@ export default function GameBoard() {
 
   //jsx components
   return (
-    <div className="w-[90rem] h-[50rem] border-solid m-auto border-white justify-center align-middle bg-blue-400 flex flex-col">
+    <div className="w-[90rem] h-[50rem] border-solid m-auto border-white justify-center align-middle bg-blue-400 flex flex-col relative">
+      <BatteryContainer life={life} />
       <button onClick={pauseButton}>Pause</button>
       <button onClick={generateWord}>Generate Word</button>
       <h1 className="text-center text-lg">
@@ -119,11 +126,13 @@ export default function GameBoard() {
         <input
           required
           type="text"
-          size="40"
-          value={tryValue}
+          size={tryValue ? tryValue.length : 0}
+          value={tryValue || ""}
           onChange={setChange}
         />
       </form>
     </div>
   );
-}
+};
+
+export default GameBoard;

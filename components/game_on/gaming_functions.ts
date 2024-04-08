@@ -1,36 +1,26 @@
-'use server'
+// gaming_functions.ts
 
-export const submitTry = (tryValue: string, wordsOnScreen: any[], setClearedCount: Function, setWordsOnScreen: Function): void => {
-  for (let i = 0; i < wordsOnScreen.length; i++) {
-    if (wordsOnScreen[ i ].word === tryValue) {
-      const newWordsOnScreen = [ ...wordsOnScreen ]; // Create a copy of the array
-      newWordsOnScreen.splice(i, 1); // Remove the word from the copy
-      setClearedCount((prevCount: number) => prevCount + 1); // Update cleared count
-      setWordsOnScreen(newWordsOnScreen); // Update words on screen
-      break;
-    }
-  }
-}
-
-//function to generate one word at a time.
-// const word_queue = word_bank.words;
-// export const generateWord = () => {
-
+// export function submitTryFunction(e: React.SyntheticEvent, wordsOnScreen: WordObjType[], setWordsOnScreen: Function, setClearedCount: Function, clearedCount: number, setTryValue: Function): void {
+//   e.preventDefault();
+//   for (let i = 0; i < wordsOnScreen.length; i++) {
+//     if (wordsOnScreen[ i ].word === e.target.value) {
+//       wordsOnScreen.splice(i, 1);
+//       setClearedCount(clearedCount + 1);
+//       setWordsOnScreen(wordsOnScreen);
+//       break;
+//     }
+//   }
+//   setTryValue("");
 // }
 
-export const getRandomInt = (min, max) => {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  const res = Math.floor(Math.random() * (max - min + 1)) + min;
-  console.log(res)
-  return res
-}
-// const word_queue = word_bank.words;
+// export function getRandomInt(min: number, max: number): number {
+//   min = Math.ceil(1);
+//   max = Math.floor(max);
+//   return Math.floor(Math.random() * (max - min + 1)) + min;
+// }
 
-export const getWord = (word_queue: any) => {
-  let wordToAdd = word_queue.pop();
-  const randomNumber = getRandomInt(1, 3);
-  const t = { 'word': wordToAdd, 'row': 1, col: 3 };
-  console.log(t)
-  return t;
-}
+// export function generateWord(word_queue: string[], setWordsOnScreen: Function): void {
+//   let wordToAdd = word_queue.shift();
+//   let wordToAddObj = { word: wordToAdd, row: 1, col: getRandomInt(1, 3) };
+//   setWordsOnScreen((prevWords) => [ ...prevWords, wordToAddObj ]);
+// }
