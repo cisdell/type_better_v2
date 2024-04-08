@@ -1,11 +1,9 @@
 //components
 import GridPlaceholder from "./grid_placeholder";
 import Word from "./word";
-
 import BatteryContainer from "./battery_container";
 //libs
-import { useState, useRef, useEffect } from "react";
-
+import { useState, useEffect } from "react";
 //types
 import { WordObjType, LevelsType } from "@/util/types";
 //data
@@ -13,11 +11,11 @@ import { grid_pos, word_bank } from "@/lib/data";
 
 const GameBoard: React.FC<{}> = () => {
   const [wordsOnScreen, setWordsOnScreen] = useState<WordObjType[]>([]);
+  const [WordsQueue, setWordsQueue] = useState<string[]>(word_bank[0]["words"]);
   //game level specific state
   const [speed, setSpeed] = useState<number>(2000);
   const [level, setLevel] = useState<LevelsType>(0);
   const [wordsCount, setWordsCount] = useState<number>(0);
-  // const [elapsedTime, setElapsedTime] = useState(0);
   const [tryValue, setTryValue] = useState<string>("");
   const [life, setLife] = useState<number[]>([0, 0, 0, 0]);
   const [clearedCount, setClearedCount] = useState<number>(0);
@@ -46,7 +44,9 @@ const GameBoard: React.FC<{}> = () => {
   };
 
   //two functions to generate a word from the word bank
-  const word_queue = word_bank[0]["words"];
+  //initially word_queue starts with level 0
+  let word_queue = word_bank[0]["words"];
+
   function getRandomInt(min: number, max: number): number {
     min = Math.ceil(1);
     max = Math.floor(max);
@@ -54,6 +54,12 @@ const GameBoard: React.FC<{}> = () => {
   }
   const generateWord = (): void => {
     let wordToAdd: string = word_queue.shift() || "";
+
+    if (word_queue.length === 0 && level < word_bank.length - 1) {
+      // Update word_queue for the next level
+      word_queue = word_bank[level + 1]["words"];
+    }
+
     let wordToAddObj: WordObjType = {
       word: wordToAdd,
       row: 1,
@@ -76,7 +82,7 @@ const GameBoard: React.FC<{}> = () => {
       }, speed);
       return () => clearInterval(interval);
     }
-  }, [paused]);
+  }, [paused, level]);
 
   //function to move down the words
   useEffect(() => {
@@ -93,6 +99,32 @@ const GameBoard: React.FC<{}> = () => {
     }, speed);
     return () => clearInterval(interval); // Cleanup on unmount
   }, [paused, speed]); // Add paused and speed as dependencies
+
+  //tracking to finish the game when you run out of life.
+  useEffect(() => {
+    if (gameOver) {
+      // setPaused(true);
+      alert("GameOver!");
+    }
+  }, [gameOver]);
+  //tracking to complete to the next stage
+  useEffect(() => {
+    if (clearedCount > 3) {
+      if (level === 2) {
+        alert("you are a typing god");
+      }
+      setPaused(true);
+      alert(`proceeding to level ${level + 1}!!!`);
+      let newLevel = level + 1;
+      setClearedCount(0);
+      let newSpeed = word_bank[level].speed;
+      setSpeed(newSpeed);
+      setPaused(false);
+      setWordsOnScreen([]);
+      setLife([0, 0, 0, 0]);
+      setLevel(newLevel);
+    }
+  }, [clearedCount]);
 
   //jsx components
   return (
@@ -119,6 +151,7 @@ const GameBoard: React.FC<{}> = () => {
             setGameOver={setGameOver}
             wordsOnScreen={wordsOnScreen}
             setWordsOnScreen={setWordsOnScreen}
+            setPaused={setPaused}
           />
         ))}
       </div>
@@ -126,7 +159,7 @@ const GameBoard: React.FC<{}> = () => {
         <input
           required
           type="text"
-          size={tryValue ? tryValue.length : 0}
+          size={40}
           value={tryValue || ""}
           onChange={setChange}
         />

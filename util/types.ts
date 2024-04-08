@@ -3,7 +3,11 @@ export interface WordObjType {
   row: number;
   col: number;
 }
-export type LevelsType = 0 | 1 | 2 | 3 | 4 | 5
+export type WordColType = {
+  row: number;
+  col: number
+}
+export type LevelsType = number
 
 export type WordType = {
   word: string;
@@ -14,6 +18,7 @@ export type WordType = {
   setGameOver: Function;
   wordsOnScreen: any;
   setWordsOnScreen: Function;
+  setPaused: Function;
 };
 
 export interface BatteryContainerProps {

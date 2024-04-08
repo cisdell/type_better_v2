@@ -10,6 +10,7 @@ export default function Word({
   setGameOver,
   wordsOnScreen,
   setWordsOnScreen,
+  setPaused,
 }: WordType) {
   // console.log(word, row, col);
   // let show: boolean = true;
@@ -21,8 +22,10 @@ export default function Word({
 
   useEffect(() => {
     if (expired(row)) {
+      console.log(life);
       if (life.length === 0) {
         setGameOver(true);
+        setPaused(true);
       }
       life.pop();
       setLife(life);
