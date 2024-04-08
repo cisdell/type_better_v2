@@ -13,6 +13,7 @@ const GameBoard: React.FC<{}> = () => {
   const [wordsOnScreen, setWordsOnScreen] = useState<WordObjType[]>([]);
   const [WordsQueue, setWordsQueue] = useState<string[]>(word_bank[0]["words"]);
   //game level specific state
+  const [name, setName] = useState<string>("");
   const [speed, setSpeed] = useState<number>(2000);
   const [level, setLevel] = useState<LevelsType>(0);
   const [wordsCount, setWordsCount] = useState<number>(0);
@@ -62,7 +63,7 @@ const GameBoard: React.FC<{}> = () => {
 
     let wordToAddObj: WordObjType = {
       word: wordToAdd,
-      row: 1,
+      row: 0,
       col: getRandomInt(1, 3),
     };
     setWordsOnScreen((prevWords) => [...prevWords, wordToAddObj]);

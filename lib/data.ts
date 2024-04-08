@@ -236,4 +236,10 @@ export const grid_pos: PosData[] = [
   { row: 8, col: 1 },
   { row: 8, col: 2 },
   { row: 8, col: 3 },
+  { row: 9, col: 1 },
+  { row: 9, col: 2 },
+  { row: 9, col: 3 },
+  { row: 10, col: 1 },
+  { row: 10, col: 2 },
+  { row: 10, col: 3 },
 ]

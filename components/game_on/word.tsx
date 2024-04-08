@@ -17,7 +17,7 @@ export default function Word({
   let css = `absolute row-start-${row} col-start-${col}`;
 
   const expired = (row: number): boolean => {
-    return row > 8;
+    return row > 10;
   };
 
   useEffect(() => {
@@ -44,8 +44,9 @@ export default function Word({
   return (
     <>
       {!expired(row) && (
-        // <div className={`absolute row-start-${row} col-start-${col}`}>
-        <div className={css}>{word}</div>
+        <div className={`absolute row-start-${row} col-start-${col}`}>
+          {word}
+        </div>
       )}
     </>
   );
