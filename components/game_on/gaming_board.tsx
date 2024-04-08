@@ -1,7 +1,7 @@
 //components
 import GridPlaceholder from "./grid_placeholder";
 import Word from "./word";
-import { submitTry } from "./gaming_functions";
+
 import BatteryContainer from "./battery_container";
 //libs
 import { useState, useRef, useEffect } from "react";
@@ -11,7 +11,7 @@ import { WordObjType, LevelsType } from "@/util/types";
 //data
 import { grid_pos, word_bank } from "@/lib/data";
 
-export default function GameBoard(): React.FC {
+const GameBoard: React.FC<{}> = () => {
   const [wordsOnScreen, setWordsOnScreen] = useState<WordObjType[]>([]);
   //game level specific state
   const [speed, setSpeed] = useState<number>(2000);
@@ -26,7 +26,7 @@ export default function GameBoard(): React.FC {
   const [audioPlaying, setAudioPlaying] = useState<boolean>(false);
 
   // console.log(tryValue);
-  const setChange = (e: React.SyntheticEvent): void => {
+  const setChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const newValue = e.target.value.replace(/\s/g, "");
     setTryValue(newValue);
   };
@@ -52,21 +52,26 @@ export default function GameBoard(): React.FC {
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
-  const generateWord = () => {
-    let wordToAdd = word_queue.shift();
-    let wordToAddObj = { word: wordToAdd, row: 1, col: getRandomInt(1, 3) };
+  const generateWord = (): void => {
+    let wordToAdd: string = word_queue.shift() || "";
+    let wordToAddObj: WordObjType = {
+      word: wordToAdd,
+      row: 1,
+      col: getRandomInt(1, 3),
+    };
     setWordsOnScreen((prevWords) => [...prevWords, wordToAddObj]);
   };
 
   //pause button
-  const pauseButton = () => {
+  const pauseButton = (): void => {
     setPaused(!paused);
   };
 
   //generate a word ever x seconds
   useEffect(() => {
+    let interval: NodeJS.Timeout;
     if (!paused) {
-      const interval = setInterval(() => {
+      interval = setInterval(() => {
         generateWord();
       }, speed);
       return () => clearInterval(interval);
@@ -75,7 +80,8 @@ export default function GameBoard(): React.FC {
 
   //function to move down the words
   useEffect(() => {
-    const interval = setInterval(() => {
+    let interval: NodeJS.Timeout;
+    interval = setInterval(() => {
       if (!paused) {
         setWordsOnScreen((prevWords) => {
           return prevWords.map((word) => ({
@@ -120,11 +126,13 @@ export default function GameBoard(): React.FC {
         <input
           required
           type="text"
-          size="40"
-          value={tryValue}
+          size={tryValue ? tryValue.length : 0}
+          value={tryValue || ""}
           onChange={setChange}
         />
       </form>
     </div>
   );
-}
+};
+
+export default GameBoard;
