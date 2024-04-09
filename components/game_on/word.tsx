@@ -12,10 +12,6 @@ export default function Word({
   setWordsOnScreen,
   setPaused,
 }: WordType) {
-  // console.log(word, row, col);
-  // let show: boolean = true;
-  let css = `absolute row-start-${row} col-start-${col}`;
-
   const expired = (row: number): boolean => {
     return row > 10;
   };
@@ -51,14 +47,3 @@ export default function Word({
     </>
   );
 }
-
-// type WordType = {
-//   word: string;
-//   row: number;
-//   col: number;
-//   life: number;
-//   setLife: Function;
-//   setGameOver: Function;
-//   wordsOnScreen: any;
-//   setWordsOnScreen: Function;
-// };
