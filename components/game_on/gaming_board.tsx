@@ -98,26 +98,27 @@ const GameBoard: React.FC<{}> = () => {
       alert("GameOver!");
     }
   }, [gameOver]);
+
   //tracking to complete to the next stage
   useEffect(() => {
     if (clearedCount > 3) {
+      // 3 is the number of words to clear to move to the next level
       if (level === 2) {
         alert("you are a typing god");
         setPaused(true);
         // end the game completely. No more levels
       } else {
+        const newLevel = level + 1;
         setPaused(true);
-        let newLevel = level + 1;
+        setLevel(newLevel);
         alert(`proceeding to level ${newLevel}!!!`);
         let newWordsQueue = word_bank[newLevel]["words"];
         setWordsQueue(newWordsQueue);
         setClearedCount(0);
-        let newSpeed = word_bank[newLevel].speed;
-        setSpeed(newSpeed);
+        setSpeed(word_bank[newLevel].speed);
         setPaused(false);
         setWordsOnScreen([]);
         setLife([0, 0, 0, 0]);
-        setLevel(newLevel);
       }
     }
   }, [clearedCount]);

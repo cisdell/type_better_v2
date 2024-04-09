@@ -23,10 +23,7 @@ export default function Word({
         setGameOver(true);
         setPaused(true);
       }
-      // life.pop();
-      // setLife(life);
       setLife((prevLife: string[]) => {
-        // Create a new array that excludes the last element
         const newLife = prevLife.slice(0, -1);
         console.log("expired" + expired(row));
         return newLife;
