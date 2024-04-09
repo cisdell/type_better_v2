@@ -44,23 +44,13 @@ const GameBoard: React.FC<{}> = () => {
     setTryValue("");
   };
 
-  //two functions to generate a word from the word bank
-  //initially word_queue starts with level 0
-  let word_queue = word_bank[0]["words"];
-
   function getRandomInt(min: number, max: number): number {
     min = Math.ceil(1);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
   const generateWord = (): void => {
-    let wordToAdd: string = word_queue.shift() || "";
-
-    if (word_queue.length === 0 && level < word_bank.length - 1) {
-      // Update word_queue for the next level
-      word_queue = word_bank[level + 1]["words"];
-    }
-
+    let wordToAdd: string = WordsQueue.shift() || "";
     let wordToAddObj: WordObjType = {
       word: wordToAdd,
       row: 0,
@@ -113,17 +103,22 @@ const GameBoard: React.FC<{}> = () => {
     if (clearedCount > 3) {
       if (level === 2) {
         alert("you are a typing god");
+        setPaused(true);
+        // end the game completely. No more levels
+      } else {
+        setPaused(true);
+        let newLevel = level + 1;
+        alert(`proceeding to level ${newLevel}!!!`);
+        let newWordsQueue = word_bank[newLevel]["words"];
+        setWordsQueue(newWordsQueue);
+        setClearedCount(0);
+        let newSpeed = word_bank[newLevel].speed;
+        setSpeed(newSpeed);
+        setPaused(false);
+        setWordsOnScreen([]);
+        setLife([0, 0, 0, 0]);
+        setLevel(newLevel);
       }
-      setPaused(true);
-      alert(`proceeding to level ${level + 1}!!!`);
-      let newLevel = level + 1;
-      setClearedCount(0);
-      let newSpeed = word_bank[level].speed;
-      setSpeed(newSpeed);
-      setPaused(false);
-      setWordsOnScreen([]);
-      setLife([0, 0, 0, 0]);
-      setLevel(newLevel);
     }
   }, [clearedCount]);
 
