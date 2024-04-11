@@ -16,6 +16,7 @@ const config: Config = {
     },
   },
   safelist: [
+    "row-start-0",
     "row-start-1",
     "row-start-2",
     "row-start-3",
@@ -25,6 +26,8 @@ const config: Config = {
     "row-start-7",
     "row-start-8",
     "row-start-9",
+    "row-start-10",
+    "row-start-11",
     'col-start-1',
     'col-start-2',
     'col-start-3',

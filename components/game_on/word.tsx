@@ -13,12 +13,11 @@ export default function Word({
   setPaused,
 }: WordType) {
   const expired = (row: number): boolean => {
-    return row > 10;
+    return row > 11;
   };
 
   useEffect(() => {
     if (expired(row)) {
-      console.log(life);
       if (life.length === 0) {
         setGameOver(true);
         setPaused(true);
