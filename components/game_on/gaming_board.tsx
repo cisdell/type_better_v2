@@ -2,16 +2,22 @@
 import GridPlaceholder from "./grid_placeholder";
 import Word from "./word";
 import BatteryContainer from "./battery_container";
+import GameOverModal from "../game_off/gameover_modal";
+import LevelOneModal from "../game_off/level1_modal";
+import LevelTwoModal from "../game_off/level2_modal";
+import LevelThreeModal from "../game_off/level3_modal";
+
 //libs
 import { useState, useEffect } from "react";
 //types
 import { WordObjType, LevelsType } from "@/util/types";
 //data
-import { grid_pos, word_bank } from "@/lib/data";
+import { grid_pos, word_bank } from "@/public/data";
 
 const GameBoard: React.FC<{}> = () => {
   const [wordsOnScreen, setWordsOnScreen] = useState<WordObjType[]>([]);
   const [WordsQueue, setWordsQueue] = useState<string[]>(word_bank[0]["words"]);
+
   //game level specific state
   const [name, setName] = useState<string>("");
   const [speed, setSpeed] = useState<number>(2000);
@@ -22,6 +28,7 @@ const GameBoard: React.FC<{}> = () => {
   const [clearedCount, setClearedCount] = useState<number>(0);
   const [paused, setPaused] = useState<boolean>(false);
   const [gameOver, setGameOver] = useState<boolean>(false);
+  const [modalOn, setModalOn] = useState<boolean>(false);
   const [audioPlaying, setAudioPlaying] = useState<boolean>(false);
 
   // console.log(tryValue);
@@ -95,28 +102,31 @@ const GameBoard: React.FC<{}> = () => {
   useEffect(() => {
     if (gameOver) {
       // setPaused(true);
-      alert("GameOver!");
+      console.log("GameOver!");
     }
   }, [gameOver]);
 
   //tracking to complete to the next stage
   useEffect(() => {
     if (clearedCount > 3) {
+      setModalOn(true);
       // 3 is the number of words to clear to move to the next level
       if (level === 2) {
-        alert("you are a typing god");
+        console.log("you are a typing god");
         setPaused(true);
+        const newLevel = level + 1;
+        setLevel(newLevel);
         // end the game completely. No more levels
       } else {
         const newLevel = level + 1;
         setPaused(true);
         setLevel(newLevel);
-        alert(`proceeding to level ${newLevel}!!!`);
+        console.log(`proceeding to level ${newLevel}!!!`);
         let newWordsQueue = word_bank[newLevel]["words"];
         setWordsQueue(newWordsQueue);
         setClearedCount(0);
         setSpeed(word_bank[newLevel].speed);
-        setPaused(false);
+        // setPaused(false);
         setWordsOnScreen([]);
         setLife([0, 0, 0, 0]);
       }
@@ -125,15 +135,15 @@ const GameBoard: React.FC<{}> = () => {
 
   //jsx components
   return (
-    <div className="w-[90rem] h-[50rem] border-solid m-auto border-white justify-center align-middle bg-blue-400 flex flex-col relative">
+    <div className="w-[90rem] h-[50rem] border-solid m-auto border-white flex flex-col justify-center items-center bg-blue-400 relative">
       <BatteryContainer life={life} />
       <button onClick={pauseButton}>Pause</button>
-      <button onClick={generateWord}>Generate Word</button>
+      {/* <button onClick={generateWord}>Generate Word</button> */}
       <h1 className="text-center text-lg">
         Type away the words before they hit the floor!
       </h1>
 
-      <div className="relative grid grid-cols-3 grid-rows-8 gap-2">
+      <div className="relative grid grid-cols-3 grid-rows-10 gap-2 w-[40rem] justify-center">
         {grid_pos.map(({ row, col }, index) => (
           <GridPlaceholder row={row} col={col} key={index} />
         ))}
@@ -152,6 +162,7 @@ const GameBoard: React.FC<{}> = () => {
           />
         ))}
       </div>
+
       <form className="ml-auto mr-auto mt-7" onSubmit={submitTry}>
         <input
           required
@@ -161,6 +172,20 @@ const GameBoard: React.FC<{}> = () => {
           onChange={setChange}
         />
       </form>
+      {gameOver && <GameOverModal />}
+      {modalOn && level === 1 && (
+        <LevelOneModal setModalOn={setModalOn} setPaused={setPaused} />
+      )}
+      {modalOn && level === 2 && (
+        <LevelTwoModal setModalOn={setModalOn} setPaused={setPaused} />
+      )}
+      {modalOn && level === 3 && (
+        <LevelThreeModal
+          setModalOn={setModalOn}
+          setPaused={setPaused}
+          setGameOver={setGameOver}
+        />
+      )}
     </div>
   );
 };

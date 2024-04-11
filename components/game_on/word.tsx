@@ -42,7 +42,9 @@ export default function Word({
   return (
     <>
       {!expired(row) && (
-        <div className={`absolute row-start-${row} col-start-${col}`}>
+        <div
+          className={`absolute row-start-${row} col-start-${col} translate-x-full`}
+        >
           {word}
         </div>
       )}
