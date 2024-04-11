@@ -13,7 +13,7 @@ export default function Word({
   setPaused,
 }: WordType) {
   const expired = (row: number): boolean => {
-    return row > 11;
+    return row > 10;
   };
 
   useEffect(() => {
