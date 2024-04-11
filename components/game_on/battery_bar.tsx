@@ -1,7 +1,10 @@
 import React from "react";
+import { PiPersonArmsSpreadFill } from "react-icons/pi";
 
 export default function BatteryBar() {
   return (
-    <div className="border border-black rounded-lg bg-black w-[15%] h-[80%] ml-[8%] mt-auto mb-auto"></div>
+    <div className="justify-start">
+      <PiPersonArmsSpreadFill size={50} />
+    </div>
   );
 }
