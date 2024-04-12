@@ -139,7 +139,7 @@ const GameBoard: React.FC<{}> = () => {
       <BatteryContainer life={life} />
       <button onClick={pauseButton}>Pause</button>
       {/* <button onClick={generateWord}>Generate Word</button> */}
-      <h1 className="text-center text-lg">
+      <h1 className="text-center text-2xl">
         Type away the words before they hit the floor!
       </h1>
 
