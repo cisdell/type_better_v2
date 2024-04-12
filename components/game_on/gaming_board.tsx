@@ -6,14 +6,13 @@ import GameOverModal from "../game_off/gameover_modal";
 import LevelOneModal from "../game_off/level1_modal";
 import LevelTwoModal from "../game_off/level2_modal";
 import LevelThreeModal from "../game_off/level3_modal";
-
+import Demo from "../game_off/demo";
 //libs
 import { useState, useEffect } from "react";
 //types
 import { WordObjType, LevelsType } from "@/util/types";
 //data
 import { grid_pos, word_bank } from "@/public/data";
-import Demo from "../game_off/demo";
 
 const GameBoard: React.FC<{}> = () => {
   const [wordsOnScreen, setWordsOnScreen] = useState<WordObjType[]>([]);

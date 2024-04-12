@@ -1,6 +1,9 @@
 import Image from "next/image";
-
-export default function LevelTwoModal({ setModalOn, setPaused }) {
+type ModalType = {
+  setModalOn: Function;
+  setPaused: any;
+};
+export default function LevelTwoModal({ setModalOn, setPaused }: ModalType) {
   return (
     <div className="absolute inset-0 flex flex-col items-center justify-center bg-gray-800 text-white ml-[20%] mr-[20%] mt-[5%] mb-[5%] rounded-3xl">
       <h2>

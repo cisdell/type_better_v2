@@ -1,7 +1,10 @@
 import Image from "next/image";
+type ModalType = {
+  setModalOn: Function;
+};
 
 // import imagePath from "@/lib/JRE.jpg";
-export default function GameOverModal({ setModalOn }) {
+export default function GameOverModal({ setModalOn }: ModalType) {
   return (
     <div className="absolute inset-0 flex flex-col items-center justify-center rounded-3xl">
       <Image
