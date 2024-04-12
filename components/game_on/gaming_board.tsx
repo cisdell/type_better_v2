@@ -135,7 +135,7 @@ const GameBoard: React.FC<{}> = () => {
 
   //jsx components
   return (
-    <div className="w-[90rem] h-[50rem] border-solid m-auto border-white flex flex-col justify-center items-center bg-blue-400 relative">
+    <div className="w-[90rem] h-[50rem] border-solid m-auto border-white flex flex-col justify-center items-center bg-white opacity-40 relative">
       <BatteryContainer life={life} />
       <button onClick={pauseButton}>Pause</button>
       {/* <button onClick={generateWord}>Generate Word</button> */}

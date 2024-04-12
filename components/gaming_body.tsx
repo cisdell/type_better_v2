@@ -8,7 +8,7 @@ import GamingGrid from "./game_on/gaming_board";
 
 export default function GamingBody() {
   return (
-    <div className="h-[68rem] bg-gray-600 flex">
+    <div className="h-[68rem] bg-gray-600 flex bg-[url('/images/keyboard-background.jpg')] bg-cover">
       <GamingGrid />
     </div>
   );
