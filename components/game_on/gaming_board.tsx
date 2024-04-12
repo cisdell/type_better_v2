@@ -13,6 +13,7 @@ import { useState, useEffect } from "react";
 import { WordObjType, LevelsType } from "@/util/types";
 //data
 import { grid_pos, word_bank } from "@/public/data";
+import Demo from "../game_off/demo";
 
 const GameBoard: React.FC<{}> = () => {
   const [wordsOnScreen, setWordsOnScreen] = useState<WordObjType[]>([]);
@@ -29,6 +30,7 @@ const GameBoard: React.FC<{}> = () => {
   const [paused, setPaused] = useState<boolean>(false);
   const [gameOver, setGameOver] = useState<boolean>(false);
   const [modalOn, setModalOn] = useState<boolean>(false);
+  const [demoOn, setDemoOn] = useState<boolean>(false);
   const [audioPlaying, setAudioPlaying] = useState<boolean>(false);
 
   // console.log(tryValue);
@@ -101,7 +103,8 @@ const GameBoard: React.FC<{}> = () => {
   //tracking to finish the game when you run out of life.
   useEffect(() => {
     if (gameOver) {
-      // setPaused(true);
+      setPaused(true);
+      setModalOn(true);
       console.log("GameOver!");
     }
   }, [gameOver]);
@@ -172,7 +175,8 @@ const GameBoard: React.FC<{}> = () => {
           onChange={setChange}
         />
       </form>
-      {gameOver && <GameOverModal />}
+      {demoOn && <Demo setDemoOn={setDemoOn} />}
+      {gameOver && modalOn && <GameOverModal setModalOn={setModalOn} />}
       {modalOn && level === 1 && (
         <LevelOneModal setModalOn={setModalOn} setPaused={setPaused} />
       )}

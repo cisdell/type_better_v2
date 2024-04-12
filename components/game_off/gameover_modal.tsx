@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 // import imagePath from "@/lib/JRE.jpg";
-export default function GameOverModal() {
+export default function GameOverModal({ setModalOn }) {
   return (
     <div className="absolute inset-0 flex flex-col items-center justify-center rounded-3xl">
       <Image
@@ -13,7 +13,7 @@ export default function GameOverModal() {
       <button
         className="h-8 w-20 bg-blue-500 text-white rounded-lg"
         onClick={() => {
-          console.log("Game Over!");
+          setModalOn(false);
         }}
       >
         Close

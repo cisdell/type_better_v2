@@ -6,7 +6,7 @@ export default function LevelThreeModal({
   setGameOver,
 }) {
   return (
-    <div className="absolute inset-0 flex flex-col items-center justify-center bg-yellow-200 ml-[20%] mr-[20%] mt-[5%] mb-[5%] rounded-3xl">
+    <div className="absolute inset-0 flex flex-col items-center justify-center bg-gray-800 text-white ml-[20%] mr-[20%] mt-[5%] mb-[5%] rounded-3xl">
       <h2>
         Level 3 Cleared! <br />
         You are typing GOD. I have nothing else left for you.
