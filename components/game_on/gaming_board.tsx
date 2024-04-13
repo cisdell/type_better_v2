@@ -13,6 +13,7 @@ import { useState, useEffect } from "react";
 import { WordObjType, LevelsType } from "@/util/types";
 //data
 import { grid_pos, word_bank } from "@/public/data";
+import Countdown from "../game_off/countdown_modal";
 
 const GameBoard: React.FC<{}> = () => {
   const [wordsOnScreen, setWordsOnScreen] = useState<WordObjType[]>([]);
@@ -29,6 +30,7 @@ const GameBoard: React.FC<{}> = () => {
   const [paused, setPaused] = useState<boolean>(false);
   const [gameOver, setGameOver] = useState<boolean>(false);
   const [modalOn, setModalOn] = useState<boolean>(false);
+  const [countdownOn, setCountdownOn] = useState<boolean>(true);
   const [demoOn, setDemoOn] = useState<boolean>(false);
   const [audioPlaying, setAudioPlaying] = useState<boolean>(false);
 
@@ -75,13 +77,13 @@ const GameBoard: React.FC<{}> = () => {
   //generate a word ever x seconds
   useEffect(() => {
     let interval: NodeJS.Timeout;
-    if (!paused) {
+    if (!paused && !gameOver && !countdownOn) {
       interval = setInterval(() => {
         generateWord();
       }, speed);
       return () => clearInterval(interval);
     }
-  }, [paused, level]);
+  }, [paused, level, gameOver, countdownOn]);
 
   //function to move down the words
   useEffect(() => {
@@ -138,15 +140,15 @@ const GameBoard: React.FC<{}> = () => {
   //jsx components
   return (
     <div className="w-[90rem] h-[50rem] border-solid m-auto border-white flex flex-col justify-center items-center">
-      {/* backdrop-blur-md bg-gray-600 opacity-85 rounded-full */}
       <BatteryContainer life={life} />
+      {/* to be removed later */}
       <button className="z-10 w-80 bg-red-500" onClick={pauseButton}>
         Pause
       </button>
-      {/* <button onClick={generateWord}>Generate Word</button> */}
-      <h1 className="text-center text-2xl z-10">
+      <h1 className="text-center text-2xl z-10 text-white">
         Type away the words before they hit the floor!
       </h1>
+      {countdownOn && <Countdown setCountdownOn={setCountdownOn} />}
       <div className="relative grid grid-cols-3 grid-rows-10 gap-2 w-[40rem] justify-center">
         {grid_pos.map(({ row, col }, index) => (
           <GridPlaceholder row={row} col={col} key={index} />
