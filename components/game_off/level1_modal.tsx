@@ -6,7 +6,7 @@ type ModalType = {
 
 export default function LevelOneModal({ setModalOn, setPaused }: ModalType) {
   return (
-    <div className="absolute inset-0 flex flex-col items-center justify-center bg-gray-800 text-white ml-[20%] mr-[20%] mt-[5%] mb-[5%] rounded-3xl">
+    <div className="absolute inset-0 flex flex-col items-center justify-center bg-gray-800 text-white ml-[20%] mr-[20%] mt-[5%] mb-[5%] rounded-3xl z-20">
       <h2>
         Level 1 Cleared! <br />
         Advancing to level 2. Words will come down every .8 seconds!!

@@ -137,14 +137,16 @@ const GameBoard: React.FC<{}> = () => {
 
   //jsx components
   return (
-    <div className="w-[90rem] h-[50rem] border-solid m-auto border-white flex flex-col justify-center items-center backdrop-blur-sm bg-white/30 rounded-full mix-blend-normal relative">
+    <div className="w-[90rem] h-[50rem] border-solid m-auto border-white flex flex-col justify-center items-center">
+      {/* backdrop-blur-md bg-gray-600 opacity-85 rounded-full */}
       <BatteryContainer life={life} />
-      <button onClick={pauseButton}>Pause</button>
+      <button className="z-10 w-80 bg-red-500" onClick={pauseButton}>
+        Pause
+      </button>
       {/* <button onClick={generateWord}>Generate Word</button> */}
-      <h1 className="text-center text-2xl">
+      <h1 className="text-center text-2xl z-10">
         Type away the words before they hit the floor!
       </h1>
-
       <div className="relative grid grid-cols-3 grid-rows-10 gap-2 w-[40rem] justify-center">
         {grid_pos.map(({ row, col }, index) => (
           <GridPlaceholder row={row} col={col} key={index} />
@@ -164,8 +166,7 @@ const GameBoard: React.FC<{}> = () => {
           />
         ))}
       </div>
-
-      <form className="ml-auto mr-auto mt-7" onSubmit={submitTry}>
+      <form className="ml-auto mr-auto mt-7 z-10" onSubmit={submitTry}>
         <input
           required
           type="text"
