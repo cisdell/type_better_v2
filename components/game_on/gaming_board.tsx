@@ -27,7 +27,7 @@ const GameBoard: React.FC<{}> = () => {
   const [tryValue, setTryValue] = useState<string>("");
   const [life, setLife] = useState<number[]>([0, 0, 0, 0]);
   const [clearedCount, setClearedCount] = useState<number>(0);
-  const [paused, setPaused] = useState<boolean>(false);
+  const [paused, setPaused] = useState<boolean>(true);
   const [gameOver, setGameOver] = useState<boolean>(false);
   const [modalOn, setModalOn] = useState<boolean>(false);
   const [countdownOn, setCountdownOn] = useState<boolean>(false);
