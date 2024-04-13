@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 export default function Countdown({ setCountdownOn }: { setCountdownOn: any }) {
-  const [countdown, setCountdown] = useState(5);
+  const [countdown, setCountdown] = useState(4);
 
   useEffect(() => {
     const timer = setTimeout(() => {

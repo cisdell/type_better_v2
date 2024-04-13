@@ -6,7 +6,7 @@ type ModalType = {
 // import imagePath from "@/lib/JRE.jpg";
 export default function GameOverModal({ setModalOn }: ModalType) {
   return (
-    <div className="absolute inset-0 flex flex-col items-center justify-center rounded-3xl">
+    <div className="absolute inset-0 flex flex-col items-center justify-center rounded-3xl z-10">
       <Image
         src="/images/gameover.png"
         width={600}
