@@ -27,7 +27,7 @@ const GameBoard: React.FC<{}> = () => {
   const [tryValue, setTryValue] = useState<string>("");
   const [life, setLife] = useState<number[]>([0, 0, 0, 0]);
   const [clearedCount, setClearedCount] = useState<number>(0);
-  const [paused, setPaused] = useState<boolean>(true);
+  const [paused, setPaused] = useState<boolean>(false);
   const [gameOver, setGameOver] = useState<boolean>(false);
   const [modalOn, setModalOn] = useState<boolean>(false);
   const [countdownOn, setCountdownOn] = useState<boolean>(false);
@@ -54,11 +54,11 @@ const GameBoard: React.FC<{}> = () => {
     setTryValue("");
   };
 
-  function getRandomInt(min: number, max: number): number {
+  const getRandomInt = (min: number, max: number): number => {
     min = Math.ceil(1);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
+  };
   const generateWord = (): void => {
     let wordToAdd: string = WordsQueue.shift() || "";
     let wordToAddObj: WordObjType = {
@@ -73,33 +73,52 @@ const GameBoard: React.FC<{}> = () => {
   const pauseButton = (): void => {
     setPaused(!paused);
   };
+  const startGame = (): void => {
+    setCountdownOn(true);
+    setPaused(false);
+    setModalOn(false);
+    setDemoOn(false);
+  };
+  const endGame = (): void => {
+    setGameOver(true);
+    setModalOn(false);
+    setDemoOn(true);
+    setPaused(true);
+  };
+  // const levelUp = (): void => {
+  //   setPaused(true);
+  //   const newLevel = level + 1;
+  //   setLevel(newLevel);
+  //   if (newLevel < 2) {
+  //     console.log(`proceeding to level ${newLevel}!!!`);
+  //     let newWordsQueue = word_bank[newLevel]["words"];
+  //     setWordsQueue(newWordsQueue);
+  //     setClearedCount(0);
+  //     setSpeed(word_bank[newLevel].speed);
+  //     setWordsOnScreen([]);
+  //     setLife([0, 0, 0, 0]);
+  //   } else {
+  //     console.log("level 2 has been reached. No more words");
+  //   }
+  // };
 
-  //generate a word ever x seconds
   useEffect(() => {
     let interval: NodeJS.Timeout;
     if (!paused && !gameOver && !countdownOn) {
       interval = setInterval(() => {
+        // Generate a new word
         generateWord();
-      }, speed);
-      return () => clearInterval(interval);
-    }
-  }, [paused, level, gameOver, countdownOn]);
-
-  //function to move down the words
-  useEffect(() => {
-    let interval: NodeJS.Timeout;
-    interval = setInterval(() => {
-      if (!paused) {
+        // Move down the words
         setWordsOnScreen((prevWords) => {
           return prevWords.map((word) => ({
             ...word,
             row: word.row + 1, // Increment the row
           }));
         });
-      }
-    }, speed);
+      }, speed);
+    }
     return () => clearInterval(interval); // Cleanup on unmount
-  }, [paused, speed]); // Add paused and speed as dependencies
+  }, [paused, level, gameOver, countdownOn, speed]); // Add all dependencies
 
   //tracking to finish the game when you run out of life.
   useEffect(() => {
@@ -177,21 +196,14 @@ const GameBoard: React.FC<{}> = () => {
           onChange={setChange}
         />
       </form>
-      {demoOn && <Demo setDemoOn={setDemoOn} setCountdownOn={setCountdownOn} />}
+      {demoOn && <Demo startGame={startGame} />}
       {gameOver && modalOn && <GameOverModal setModalOn={setModalOn} />}
       {modalOn && level === 1 && (
-        <LevelOneModal setModalOn={setModalOn} setPaused={setPaused} />
+        // <LevelOneModal setModalOn={setModalOn} setPaused={setPaused} />
+        <LevelOneModal startGame={startGame} />
       )}
-      {modalOn && level === 2 && (
-        <LevelTwoModal setModalOn={setModalOn} setPaused={setPaused} />
-      )}
-      {modalOn && level === 3 && (
-        <LevelThreeModal
-          setModalOn={setModalOn}
-          setPaused={setPaused}
-          setGameOver={setGameOver}
-        />
-      )}
+      {modalOn && level === 2 && <LevelTwoModal startGame={startGame} />}
+      {modalOn && level === 3 && <LevelThreeModal endGame={endGame} />}
     </div>
   );
 };

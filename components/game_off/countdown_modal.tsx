@@ -5,7 +5,7 @@ export default function Countdown({ setCountdownOn }: { setCountdownOn: any }) {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      if (countdown > 0) {
+      if (countdown > 1) {
         setCountdown(countdown - 1);
       } else {
         console.log("timer done");

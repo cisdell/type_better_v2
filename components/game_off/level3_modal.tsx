@@ -1,17 +1,8 @@
 import Image from "next/image";
-type ModalType = {
-  setModalOn: Function;
-  setPaused: Function;
-  setGameOver: Function;
-};
 
-export default function LevelThreeModal({
-  setModalOn,
-  setPaused,
-  setGameOver,
-}: ModalType) {
+export default function LevelThreeModal({ endGame }: { endGame: Function }) {
   return (
-    <div className="absolute inset-0 flex flex-col items-center justify-center bg-gray-800 text-white ml-[20%] mr-[20%] mt-[5%] mb-[5%] rounded-3xl">
+    <div className="absolute inset-0 flex flex-col items-center justify-center bg-gray-800 text-white ml-[20%] mr-[20%] mt-[5%] mb-[5%] rounded-3xl z-20">
       <h2>
         Level 3 Cleared! <br />
         You are typing GOD. I have nothing else left for you.
@@ -25,9 +16,7 @@ export default function LevelThreeModal({
       <button
         className="h-8 w-20 bg-blue-500 text-white rounded-lg"
         onClick={() => {
-          setModalOn(false);
-          setPaused(true);
-          setGameOver(true);
+          endGame();
         }}
       >
         Close
