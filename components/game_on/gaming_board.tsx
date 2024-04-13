@@ -27,11 +27,11 @@ const GameBoard: React.FC<{}> = () => {
   const [tryValue, setTryValue] = useState<string>("");
   const [life, setLife] = useState<number[]>([0, 0, 0, 0]);
   const [clearedCount, setClearedCount] = useState<number>(0);
-  const [paused, setPaused] = useState<boolean>(false);
+  const [paused, setPaused] = useState<boolean>(true);
   const [gameOver, setGameOver] = useState<boolean>(false);
   const [modalOn, setModalOn] = useState<boolean>(false);
-  const [countdownOn, setCountdownOn] = useState<boolean>(true);
-  const [demoOn, setDemoOn] = useState<boolean>(false);
+  const [countdownOn, setCountdownOn] = useState<boolean>(false);
+  const [demoOn, setDemoOn] = useState<boolean>(true);
   const [audioPlaying, setAudioPlaying] = useState<boolean>(false);
 
   // console.log(tryValue);
@@ -177,7 +177,7 @@ const GameBoard: React.FC<{}> = () => {
           onChange={setChange}
         />
       </form>
-      {demoOn && <Demo setDemoOn={setDemoOn} />}
+      {demoOn && <Demo setDemoOn={setDemoOn} setCountdownOn={setCountdownOn} />}
       {gameOver && modalOn && <GameOverModal setModalOn={setModalOn} />}
       {modalOn && level === 1 && (
         <LevelOneModal setModalOn={setModalOn} setPaused={setPaused} />
