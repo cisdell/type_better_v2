@@ -10,8 +10,7 @@ export default function Word({
   setGameOver,
   wordsOnScreen,
   setWordsOnScreen,
-  setPaused,
-}: WordType) {
+}: any) {
   const expired = (row: number): boolean => {
     return row > 10;
   };
@@ -20,7 +19,6 @@ export default function Word({
     if (expired(row)) {
       if (life.length === 0) {
         setGameOver(true);
-        setPaused(true);
       }
       setLife((prevLife: string[]) => {
         const newLife = prevLife.slice(0, -1);

@@ -1,10 +1,10 @@
 import Image from "next/image";
 type ModalType = {
-  setModalOn: Function;
+  resetGame: Function;
 };
 
 // import imagePath from "@/lib/JRE.jpg";
-export default function GameOverModal({ setModalOn }: ModalType) {
+export default function GameOverModal({ resetGame }: any) {
   return (
     <div className="absolute inset-0 flex flex-col items-center justify-center rounded-3xl z-10">
       <Image
@@ -15,11 +15,9 @@ export default function GameOverModal({ setModalOn }: ModalType) {
       />
       <button
         className="h-8 w-20 bg-blue-500 text-white rounded-lg"
-        onClick={() => {
-          setModalOn(false);
-        }}
+        onClick={resetGame}
       >
-        Close
+        Take me to Level 1
       </button>
     </div>
   );

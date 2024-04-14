@@ -17,11 +17,13 @@ import Countdown from "../game_off/countdown_modal";
 
 const GameBoard: React.FC<{}> = () => {
   const [wordsOnScreen, setWordsOnScreen] = useState<WordObjType[]>([]);
-  const [WordsQueue, setWordsQueue] = useState<string[]>(word_bank[0]["words"]);
+  const [WordsQueue, setWordsQueue] = useState<string[]>(
+    word_bank[0]["words"].slice()
+  );
 
   //game level specific state
   const [name, setName] = useState<string>("");
-  const [speed, setSpeed] = useState<number>(2000);
+  const [speed, setSpeed] = useState<number>(1000);
   const [level, setLevel] = useState<LevelsType>(0);
   const [wordsCount, setWordsCount] = useState<number>(0);
   const [tryValue, setTryValue] = useState<string>("");
@@ -46,7 +48,11 @@ const GameBoard: React.FC<{}> = () => {
     for (let i = 0; i < wordsOnScreen.length; i++) {
       if (wordsOnScreen[i].word === tryValue) {
         wordsOnScreen.splice(i, 1);
-        setClearedCount(clearedCount + 1);
+        let newCleardCount = clearedCount + 1;
+        console.log(
+          `Just cleared ${tryValue}. Cleared count: ${newCleardCount}`
+        );
+        setClearedCount(newCleardCount);
         setWordsOnScreen(wordsOnScreen);
         break;
       }
@@ -68,39 +74,10 @@ const GameBoard: React.FC<{}> = () => {
     };
     setWordsOnScreen((prevWords) => [...prevWords, wordToAddObj]);
   };
-
   //pause button
   const pauseButton = (): void => {
     setPaused(!paused);
   };
-  const startGame = (): void => {
-    setCountdownOn(true);
-    setPaused(false);
-    setModalOn(false);
-    setDemoOn(false);
-  };
-  const endGame = (): void => {
-    setGameOver(true);
-    setModalOn(false);
-    setDemoOn(true);
-    setPaused(true);
-  };
-  // const levelUp = (): void => {
-  //   setPaused(true);
-  //   const newLevel = level + 1;
-  //   setLevel(newLevel);
-  //   if (newLevel < 2) {
-  //     console.log(`proceeding to level ${newLevel}!!!`);
-  //     let newWordsQueue = word_bank[newLevel]["words"];
-  //     setWordsQueue(newWordsQueue);
-  //     setClearedCount(0);
-  //     setSpeed(word_bank[newLevel].speed);
-  //     setWordsOnScreen([]);
-  //     setLife([0, 0, 0, 0]);
-  //   } else {
-  //     console.log("level 2 has been reached. No more words");
-  //   }
-  // };
 
   useEffect(() => {
     let interval: NodeJS.Timeout;
@@ -129,29 +106,28 @@ const GameBoard: React.FC<{}> = () => {
     }
   }, [gameOver]);
 
-  //tracking to complete to the next stage
+  //tracking to complete to the next level
   useEffect(() => {
-    if (clearedCount > 3) {
+    if (clearedCount > 0) {
+      setPaused(true);
+      console.log("pausing");
+      setClearedCount(0);
+      setWordsOnScreen([]);
+      console.log("words on screen");
+      console.log(wordsOnScreen);
+      setLife([0, 0, 0, 0]);
+      const newLevel = level + 1;
+      setLevel(newLevel);
       setModalOn(true);
-      // 3 is the number of words to clear to move to the next level
       if (level === 2) {
         console.log("you are a typing god");
-        setPaused(true);
-        const newLevel = level + 1;
-        setLevel(newLevel);
         // end the game completely. No more levels
       } else {
-        const newLevel = level + 1;
-        setPaused(true);
-        setLevel(newLevel);
-        console.log(`proceeding to level ${newLevel}!!!`);
-        let newWordsQueue = word_bank[newLevel]["words"];
+        const newWordsQueue = [...word_bank[newLevel]["words"]];
         setWordsQueue(newWordsQueue);
-        setClearedCount(0);
-        setSpeed(word_bank[newLevel].speed);
-        // setPaused(false);
-        setWordsOnScreen([]);
-        setLife([0, 0, 0, 0]);
+        setSpeed(word_bank[newLevel]["speed"]);
+        console.log("level up");
+        // 3 is the number of words to clear to move to the next level
       }
     }
   }, [clearedCount]);
@@ -196,14 +172,19 @@ const GameBoard: React.FC<{}> = () => {
           onChange={setChange}
         />
       </form>
-      {demoOn && <Demo startGame={startGame} />}
-      {gameOver && modalOn && <GameOverModal setModalOn={setModalOn} />}
-      {modalOn && level === 1 && (
-        // <LevelOneModal setModalOn={setModalOn} setPaused={setPaused} />
-        <LevelOneModal startGame={startGame} />
+      {/* {demoOn && <Demo startGame={startGame} />} */}
+      {gameOver && modalOn && (
+        <GameOverModal setModalOn={setModalOn} setPaused={setPaused} />
       )}
-      {modalOn && level === 2 && <LevelTwoModal startGame={startGame} />}
-      {modalOn && level === 3 && <LevelThreeModal endGame={endGame} />}
+      {!gameOver && modalOn && level === 1 && (
+        <LevelOneModal setModalOn={setModalOn} setPaused={setPaused} />
+      )}
+      {!gameOver && modalOn && level === 2 && (
+        <LevelTwoModal setModalOn={setModalOn} setPaused={setPaused} />
+      )}
+      {!gameOver && modalOn && level === 3 && (
+        <LevelThreeModal setModalOn={setModalOn} setPaused={setPaused} />
+      )}
     </div>
   );
 };
