@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 
-export default function Countdown({ setCountdownOn }: { setCountdownOn: any }) {
+export default function Countdown({ setCountdownOn, setPaused }: any) {
   const [countdown, setCountdown] = useState(4);
-
+  setPaused(false);
   useEffect(() => {
     const timer = setTimeout(() => {
       if (countdown > 1) {

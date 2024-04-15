@@ -97,7 +97,7 @@ const GameBoard: React.FC<{}> = () => {
 
   //tracking to finish the game when you run out of life.
   useEffect(() => {
-    if (gameOver) {
+    if (gameOver || demoOn) {
       setPaused(true);
       setModalOn(true);
       setClearedCount(0);
@@ -105,10 +105,10 @@ const GameBoard: React.FC<{}> = () => {
       setLife([0, 0, 0, 0]);
       setLevel(0);
       setWordsQueue(word_bank[0]["words"].slice());
-
+      setSpeed(1000);
       console.log("GameOver!");
     }
-  }, [gameOver]);
+  }, [gameOver, demoOn]);
 
   //tracking to complete to the next level
   useEffect(() => {
@@ -147,7 +147,9 @@ const GameBoard: React.FC<{}> = () => {
       <h1 className="text-center text-2xl z-10 text-white">
         Type away the words before they hit the floor!
       </h1>
-      {countdownOn && <Countdown setCountdownOn={setCountdownOn} />}
+      {countdownOn && (
+        <Countdown setCountdownOn={setCountdownOn} setPaused={setPaused} />
+      )}
       <div className="relative grid grid-cols-3 grid-rows-10 gap-2 w-[40rem] justify-center">
         {grid_pos.map(({ row, col }, index) => (
           <GridPlaceholder row={row} col={col} key={index} />
