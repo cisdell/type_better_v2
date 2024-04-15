@@ -78,14 +78,12 @@ const GameBoard: React.FC<{}> = () => {
   const pauseButton = (): void => {
     setPaused(!paused);
   };
-
+  //this function generates words and moves them down the screen
   useEffect(() => {
     let interval: NodeJS.Timeout;
-    if (!paused && !gameOver && !countdownOn) {
+    if (!paused && !gameOver && !countdownOn && !demoOn) {
       interval = setInterval(() => {
-        // Generate a new word
         generateWord();
-        // Move down the words
         setWordsOnScreen((prevWords) => {
           return prevWords.map((word) => ({
             ...word,
@@ -95,7 +93,7 @@ const GameBoard: React.FC<{}> = () => {
       }, speed);
     }
     return () => clearInterval(interval); // Cleanup on unmount
-  }, [paused, level, gameOver, countdownOn, speed]); // Add all dependencies
+  }, [paused, level, gameOver, countdownOn, speed, demoOn]); // Add all dependencies
 
   //tracking to finish the game when you run out of life.
   useEffect(() => {
@@ -172,18 +170,35 @@ const GameBoard: React.FC<{}> = () => {
           onChange={setChange}
         />
       </form>
-      {/* {demoOn && <Demo startGame={startGame} />} */}
+      {demoOn && <Demo setDemoOn={setDemoOn} setCountdownOn={setCountdownOn} />}
       {gameOver && modalOn && (
-        <GameOverModal setModalOn={setModalOn} setPaused={setPaused} />
+        <GameOverModal
+          setModalOn={setModalOn}
+          setPaused={setPaused}
+          setCountdownOn={setCountdownOn}
+          setDemoOn={setDemoOn}
+        />
       )}
       {!gameOver && modalOn && level === 1 && (
-        <LevelOneModal setModalOn={setModalOn} setPaused={setPaused} />
+        <LevelOneModal
+          setModalOn={setModalOn}
+          setPaused={setPaused}
+          setCountdownOn={setCountdownOn}
+        />
       )}
       {!gameOver && modalOn && level === 2 && (
-        <LevelTwoModal setModalOn={setModalOn} setPaused={setPaused} />
+        <LevelTwoModal
+          setModalOn={setModalOn}
+          setPaused={setPaused}
+          setCountdownOn={setCountdownOn}
+        />
       )}
       {!gameOver && modalOn && level === 3 && (
-        <LevelThreeModal setModalOn={setModalOn} setPaused={setPaused} />
+        <LevelThreeModal
+          setModalOn={setModalOn}
+          setPaused={setPaused}
+          setDemoOn={setDemoOn}
+        />
       )}
     </div>
   );
