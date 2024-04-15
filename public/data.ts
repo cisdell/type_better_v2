@@ -1,7 +1,7 @@
 export const word_bank = [
   {
     level: 0,
-    speed: 1000,
+    speed: 500,
     words: [ "avocado",
       "raspberry",
       "cherry",
@@ -210,7 +210,7 @@ export const word_bank = [
       "enervate" ],
     message: 'level 2 cleared! We got nothing for you!'
   }
-]
+] as const
 
 type PosData = { row: number, col: number }
 
