@@ -12,10 +12,10 @@ export default function LevelTwoModal({
         Advancing to level 3 Good Luck!!
       </h2>
       <Image
-        src="/images/Keyboard.png"
+        src="/images/keyboard.png"
         width={600}
         height={600}
-        alt="Level1 clear"
+        alt="Level2 clear"
       />
       <button
         className="h-8 w-20 bg-blue-500 text-white rounded-lg"
