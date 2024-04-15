@@ -100,6 +100,12 @@ const GameBoard: React.FC<{}> = () => {
     if (gameOver) {
       setPaused(true);
       setModalOn(true);
+      setClearedCount(0);
+      setWordsOnScreen([]);
+      setLife([0, 0, 0, 0]);
+      setLevel(0);
+      setWordsQueue(word_bank[0]["words"].slice());
+
       console.log("GameOver!");
     }
   }, [gameOver]);
@@ -177,6 +183,7 @@ const GameBoard: React.FC<{}> = () => {
           setPaused={setPaused}
           setCountdownOn={setCountdownOn}
           setDemoOn={setDemoOn}
+          setGameOver={setGameOver}
         />
       )}
       {!gameOver && modalOn && level === 1 && (
