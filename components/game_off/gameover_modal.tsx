@@ -32,6 +32,7 @@ export default function GameOverModal({
         className="h-auto w-auto bg-blue-500 text-white rounded-lg"
         onClick={() => {
           setDemoOn(true);
+          setGameOver(false);
         }}
       >
         Quit

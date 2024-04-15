@@ -93,7 +93,7 @@ const GameBoard: React.FC<{}> = () => {
       }, speed);
     }
     return () => clearInterval(interval); // Cleanup on unmount
-  }, [paused, level, gameOver, countdownOn, speed, demoOn]); // Add all dependencies
+  }, [paused, level, gameOver, countdownOn, speed, demoOn]);
 
   //tracking to finish the game when you run out of life.
   useEffect(() => {
@@ -141,7 +141,10 @@ const GameBoard: React.FC<{}> = () => {
     <div className="w-[90rem] h-[50rem] border-solid m-auto border-white flex flex-col justify-center items-center">
       <BatteryContainer life={life} />
       {/* to be removed later */}
-      <button className="z-10 w-80 bg-red-500" onClick={pauseButton}>
+      <button
+        className="z-10 w-auto rounded-lg bg-red-500"
+        onClick={pauseButton}
+      >
         Pause
       </button>
       <h1 className="text-center text-2xl z-10 text-white">
