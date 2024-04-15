@@ -12,7 +12,7 @@ export default function LevelThreeModal({
         You are typing GOD. I have nothing else left for you.
       </h2>
       <Image
-        src="/images/JRE.jpg"
+        src="/images/kevinhart.jpg"
         width={600}
         height={600}
         alt="Level3 clear"
