@@ -4,7 +4,7 @@ import { FaKeyboard } from "react-icons/fa";
 
 export default function BatteryBar() {
   return (
-    <div className="justify-end text-yellow-600">
+    <div className="justify-end text-yellow-600 shadow-2xl">
       {/* <PiPersonArmsSpreadFill size={50} /> */}
       <FaKeyboard size={80} />
     </div>
