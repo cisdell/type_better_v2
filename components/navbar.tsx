@@ -16,8 +16,12 @@ export default function NavBar() {
       <a className="mr-7" href="">
         Add Request
       </a>
-      <a className="mr-7" href="">
-        About
+      <a
+        className="mr-7"
+        href="https://hireandrewcho.vercel.app/"
+        target="_blank"
+      >
+        About Me
       </a>
     </nav>
   );
