@@ -8,7 +8,7 @@ import LevelTwoModal from "../game_off/level2_modal";
 import LevelThreeModal from "../game_off/level3_modal";
 import Demo from "../game_off/demo";
 //libs
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 //types
 import { WordObjType, LevelsType } from "@/util/types";
 //data
@@ -75,9 +75,9 @@ const GameBoard: React.FC<{}> = () => {
     setWordsOnScreen((prevWords) => [...prevWords, wordToAddObj]);
   };
   //pause button
-  const pauseButton = (): void => {
-    setPaused(!paused);
-  };
+  // const pauseButton = (): void => {
+  //   setPaused(!paused);
+  // };
   //this function generates words and moves them down the screen
   useEffect(() => {
     let interval: NodeJS.Timeout;
@@ -112,7 +112,7 @@ const GameBoard: React.FC<{}> = () => {
 
   //tracking to complete to the next level
   useEffect(() => {
-    if (clearedCount > 3) {
+    if (clearedCount > 10) {
       setPaused(true);
       console.log("pausing");
       setClearedCount(0);
@@ -136,23 +136,29 @@ const GameBoard: React.FC<{}> = () => {
     }
   }, [clearedCount]);
 
+  const inputRef = useRef<HTMLInputElement>(null);
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, []);
+
   //jsx components
   return (
-    <div className="w-[90rem] h-[50rem] border-solid m-auto border-white flex flex-col justify-center items-center">
+    <div className="relative w-[90rem] h-[50rem] border-solid m-auto border-white flex flex-col justify-center items-center">
       <BatteryContainer life={life} />
       {/* to be removed later */}
-      <button
+      {/* <button
         className="z-10 w-auto rounded-lg bg-red-500"
         onClick={pauseButton}
       >
         Pause
-      </button>
-      <h1 className="text-center text-2xl z-10 text-white">
-        Type away the words before they hit the floor!
-      </h1>
+      </button> */}
+
       {countdownOn && (
         <Countdown setCountdownOn={setCountdownOn} setPaused={setPaused} />
       )}
+
       <div className="relative grid grid-cols-3 grid-rows-10 gap-2 w-[40rem] justify-center">
         {grid_pos.map(({ row, col }, index) => (
           <GridPlaceholder row={row} col={col} key={index} />
@@ -172,15 +178,27 @@ const GameBoard: React.FC<{}> = () => {
           />
         ))}
       </div>
-      <form className="ml-auto mr-auto mt-7 z-10" onSubmit={submitTry}>
-        <input
-          required
-          type="text"
-          size={40}
-          value={tryValue || ""}
-          onChange={setChange}
-        />
-      </form>
+      <div className="border-4 border-solid border-red-700 rounded-3xl w-[40%] mt-4"></div>
+
+      {!countdownOn && (
+        <form
+          className="ml-auto mr-auto mt-7 z-10 text-3xl flex flex-col justify-center items-center "
+          onSubmit={submitTry}
+        >
+          <input
+            required
+            type="text"
+            size={30}
+            value={tryValue || ""}
+            onChange={setChange}
+            autoFocus
+            ref={inputRef}
+            style={{ caretColor: "red" }}
+          />
+          <span className="text-white mt-2">Type the words above!</span>
+        </form>
+      )}
+
       {demoOn && <Demo setDemoOn={setDemoOn} setCountdownOn={setCountdownOn} />}
       {gameOver && modalOn && (
         <GameOverModal
