@@ -138,7 +138,7 @@ const GameBoard: React.FC<{}> = () => {
 
   //jsx components
   return (
-    <div className="w-[90rem] h-[50rem] border-solid m-auto border-white flex flex-col justify-center items-center">
+    <div className="relative w-[90rem] h-[50rem] border-solid m-auto border-white flex flex-col justify-center items-center">
       <BatteryContainer life={life} />
       {/* to be removed later */}
       <button
@@ -147,12 +147,15 @@ const GameBoard: React.FC<{}> = () => {
       >
         Pause
       </button>
-      <h1 className="text-center text-2xl z-10 text-white">
+      {/* <h1 className="text-center text-2xl z-10 text-white">
         Type away the words before they hit the floor!
-      </h1>
+      </h1> */}
       {countdownOn && (
         <Countdown setCountdownOn={setCountdownOn} setPaused={setPaused} />
       )}
+      {/*
+      <Countdown setCountdownOn={setCountdownOn} setPaused={setPaused} /> */}
+
       <div className="relative grid grid-cols-3 grid-rows-10 gap-2 w-[40rem] justify-center">
         {grid_pos.map(({ row, col }, index) => (
           <GridPlaceholder row={row} col={col} key={index} />
@@ -172,7 +175,11 @@ const GameBoard: React.FC<{}> = () => {
           />
         ))}
       </div>
-      <form className="ml-auto mr-auto mt-7 z-10" onSubmit={submitTry}>
+      <div className="border-4 border-solid border-red-700 rounded-3xl w-[40%] mt-4"></div>
+      <form
+        className="ml-auto mr-auto mt-7 z-10 text-3xl flex flex-col justify-center items-center "
+        onSubmit={submitTry}
+      >
         <input
           required
           type="text"
@@ -180,6 +187,7 @@ const GameBoard: React.FC<{}> = () => {
           value={tryValue || ""}
           onChange={setChange}
         />
+        <span className="text-white mt-2">Type the words above!</span>
       </form>
       {demoOn && <Demo setDemoOn={setDemoOn} setCountdownOn={setCountdownOn} />}
       {gameOver && modalOn && (

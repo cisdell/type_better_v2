@@ -21,11 +21,11 @@ export default function Demo({ setDemoOn, setCountdownOn }: any) {
       </video>
       <form onSubmit={handleSubmit}>
         <button
-          className="h-8 w-20 bg-blue-500 text-white rounded-lg"
+          className="w-[11rem] h-[2rem] mt-2 bg-yellow-600 text-black rounded-lg"
           type="submit"
           autoFocus
         >
-          Close
+          Let's Play the Game!
         </button>
       </form>
     </div>
