@@ -112,7 +112,7 @@ const GameBoard: React.FC<{}> = () => {
 
   //tracking to complete to the next level
   useEffect(() => {
-    if (clearedCount > 0) {
+    if (clearedCount > 3) {
       setPaused(true);
       console.log("pausing");
       setClearedCount(0);
