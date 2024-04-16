@@ -22,10 +22,8 @@ export default function Word({
       }
       setLife((prevLife: string[]) => {
         const newLife = prevLife.slice(0, -1);
-        console.log("expired" + expired(row));
         return newLife;
       });
-      console.log("expired" + expired(row));
       //filter out the missed word from the object array
       for (let i = 0; i < wordsOnScreen.length; i++) {
         if (wordsOnScreen[i].word === word) {

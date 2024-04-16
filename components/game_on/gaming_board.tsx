@@ -33,7 +33,7 @@ const GameBoard: React.FC<{}> = () => {
   const [gameOver, setGameOver] = useState<boolean>(false);
   const [modalOn, setModalOn] = useState<boolean>(false);
   const [countdownOn, setCountdownOn] = useState<boolean>(false);
-  const [demoOn, setDemoOn] = useState<boolean>(true);
+  const [demoOn, setDemoOn] = useState<boolean>(true); //comeback
   const [audioPlaying, setAudioPlaying] = useState<boolean>(false);
 
   // console.log(tryValue);
@@ -74,11 +74,7 @@ const GameBoard: React.FC<{}> = () => {
     };
     setWordsOnScreen((prevWords) => [...prevWords, wordToAddObj]);
   };
-  //pause button
-  // const pauseButton = (): void => {
-  //   setPaused(!paused);
-  // };
-  //this function generates words and moves them down the screen
+
   useEffect(() => {
     let interval: NodeJS.Timeout;
     if (!paused && !gameOver && !countdownOn && !demoOn) {
@@ -114,11 +110,8 @@ const GameBoard: React.FC<{}> = () => {
   useEffect(() => {
     if (clearedCount > 10) {
       setPaused(true);
-      console.log("pausing");
       setClearedCount(0);
       setWordsOnScreen([]);
-      console.log("words on screen");
-      console.log(wordsOnScreen);
       setLife([0, 0, 0, 0]);
       const newLevel = level + 1;
       setLevel(newLevel);
@@ -147,7 +140,6 @@ const GameBoard: React.FC<{}> = () => {
   return (
     <div className="relative w-[90rem] h-[50rem] border-solid m-auto border-white flex flex-col justify-center items-center">
       <BatteryContainer life={life} />
-      {/* to be removed later */}
       {/* <button
         className="z-10 w-auto rounded-lg bg-red-500"
         onClick={pauseButton}
