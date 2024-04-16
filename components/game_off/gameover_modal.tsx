@@ -16,27 +16,30 @@ export default function GameOverModal({
         height={600}
         alt="Game Over"
       />
-      <button
-        className="h-auto w-auto bg-blue-500 text-white rounded-lg"
-        onClick={() => {
-          setModalOn(false);
-          setPaused(false);
-          setCountdownOn(true);
-          setGameOver(false);
-        }}
-      >
-        Take me to Level 1
-      </button>
+      <div className="flex space-x-4 text-2xl">
+        <button
+          className="w-[10rem] h=[2rem] bg-yellow-600 text-black rounded-lg"
+          autoFocus
+          onClick={() => {
+            setModalOn(false);
+            setPaused(false);
+            setCountdownOn(true);
+            setGameOver(false);
+          }}
+        >
+          Level 1
+        </button>
 
-      <button
-        className="h-auto w-auto bg-blue-500 text-white rounded-lg"
-        onClick={() => {
-          setDemoOn(true);
-          setGameOver(false);
-        }}
-      >
-        Quit
-      </button>
+        <button
+          className="w-[10rem] h=[2rem] bg-yellow-600 text-black rounded-lg"
+          onClick={() => {
+            setDemoOn(true);
+            setGameOver(false);
+          }}
+        >
+          Quit
+        </button>
+      </div>
     </div>
   );
 }
