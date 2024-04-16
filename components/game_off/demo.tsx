@@ -25,7 +25,7 @@ export default function Demo({ setDemoOn, setCountdownOn }: any) {
           type="submit"
           autoFocus
         >
-          Let's Play the Game!
+          GAME ON!
         </button>
       </form>
     </div>
