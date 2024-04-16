@@ -1,7 +1,7 @@
 export const word_bank = [
   {
     level: 0,
-    speed: 1000,
+    speed: 1500,
     words: [ "avocado",
       "raspberry",
       "cherry",
@@ -40,7 +40,7 @@ export const word_bank = [
   },
   {
     level: 1,
-    speed: 700,
+    speed: 800,
     words: [ "piano",
       "fireworks",
       "forest",
