@@ -6,7 +6,7 @@ export default function NavBar() {
     <nav className="h-14 w-auto bg-black flex items-center">
       <div className="w-[50%]">
         <span className="w-[30%] ml-10 text-white">
-          Welcome USERNsdfsdfsdfAME
+          Welcome to TypeBetter CoolUser!
         </span>
       </div>
 
