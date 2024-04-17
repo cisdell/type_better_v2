@@ -15,6 +15,7 @@ export default function Demo({ setDemoOn, setCountdownOn }: any) {
         autoPlay
         muted
         loop
+        controls
         className="rounded-lg"
       >
         <source src="/images/demo_video.mp4" type="video/mp4" />
