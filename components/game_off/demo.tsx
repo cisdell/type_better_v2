@@ -7,7 +7,7 @@ export default function Demo({ setDemoOn, setCountdownOn }: any) {
     setCountdownOn(true);
   };
   return (
-    <div className="absolute inset-0 flex flex-col z-10 justify-center items-center bg-slate-600 ml-[20%] mr-[20%] mt-[10%] mb-[10%] rounded-3xl z-10">
+    <div className="absolute inset-0 flex flex-col justify-center items-center bg-slate-600 ml-[20%] mr-[20%] mt-[10%] mb-[10%] rounded-3xl z-10">
       <h1></h1>
       <video
         width="640"
