@@ -1,10 +1,10 @@
-import React from "react";
-import GameBoard from "@/components/gaming_body";
+// import React from "react";
+// import GameBoard from "@/components/gaming_body";
 
-export default function GB() {
-  return (
-    <>
-      <GameBoard />
-    </>
-  );
-}
+// export default function GB() {
+//   return (
+//     <>
+//       <GameBoard />
+//     </>
+//   );
+// }
