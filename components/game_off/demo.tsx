@@ -8,8 +8,8 @@ export default function Demo({ setDemoOn, setCountdownOn }: any) {
     console.log("clicked from demo modal");
   };
   return (
-    <div className="absolute inset-0 flex flex-col z-10 justify-center items-center bg-gray-300 ml-[20%] mr-[20%] mt-[5%] mb-[5%] border rounded-md">
-      <h1>
+    <div className="absolute inset-0 flex flex-col z-10 justify-center items-center bg-yellow-600 ml-[20%] mr-[20%] mt-[5%] mb-[5%] rounded-3xl">
+      <h1 className="text-2xl pb-6">
         Instructions: Type the words in the text box before they hit the red
         bar.{" "}
       </h1>
@@ -26,7 +26,7 @@ export default function Demo({ setDemoOn, setCountdownOn }: any) {
       </video>
       <form onSubmit={handleSubmit}>
         <button
-          className="w-[11rem] h-[2rem] mt-2 bg-yellow-600 text-black rounded-lg"
+          className="w-[11rem] h-[2rem] mt-2 bg-white text-black rounded-lg"
           type="submit"
           autoFocus
         >
