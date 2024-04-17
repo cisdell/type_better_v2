@@ -16,6 +16,7 @@ export default function Demo({ setDemoOn, setCountdownOn }: any) {
         autoPlay
         muted
         loop
+        controls
         className="rounded-lg"
         controls
       >
